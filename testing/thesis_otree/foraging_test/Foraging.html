@@ -1,0 +1,13 @@
+{{ block title }} Clearing {{ subsession.round_number }} of {{ Constants.num_rounds }} in Forrest {{ endblock }}
+
+{% block content %}
+<p> Probability of being predated {{threat_percent}}%</p>
+
+<p> Probability of foraging success: {{gain_percent}}%</p>
+
+<p>Please decide if you would like to FORAGE or LEAVE</p>
+<button name="foraging_choice" value="True">FORAGE</button>
+<button name="foraging_choice" value="False">LEAVE</button>
+<!--{{ form.foraging_choice.errors }}-->
+
+{% endblock %}

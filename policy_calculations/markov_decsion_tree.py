@@ -32,7 +32,7 @@ for day in days:
                 else:
                     action = 'indifferent'
                 results[action] += 1
-                nodes[day, Pg, Pd] = {AG, A0, wealth_state,(Pg * AG) + (1 - Pg - Pd) * A0 - wealth_state, action}
+                nodes[(day, Pg, Pd, wealth_state)] = {(AG, A0,(Pg * AG) + (1 - Pg - Pd) * A0 - wealth_state, action)}
         expected_outcome = expected_outcome_for_states / probability_states + wealth_state
         expected_future_states[wealth_state] = expected_outcome
         expected_outcome_by_wealth_state[wealth_state,day] = expected_outcome
