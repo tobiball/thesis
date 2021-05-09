@@ -1,0 +1,69 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+{% load i18n %}
+
+{% block styles %}
+    <link href="{% static 'scl/css/custom.css' %}" rel="stylesheet"/>
+{% endblock %}
+
+{% block title %}
+Betting Game - Instructions
+{% endblock %}
+
+{% block content %}
+<div class="wrapper instructions">
+     <p>
+        The next stage of this experiment is a <b>reaction time game</b>. Before the start of the game, you will go through a <b>comprehension quiz</b>.
+        You have to answer all questions correctly in order to proceed.
+        If you fail to answer all questions correctly, you will come back to this page.
+    </p>
+    <p>
+        In the game, you will see 2 windows with wheels of 6 different pictures flashing. You can stop the wheels by pressing a button labelled <b>"STOP"</b>.
+        However, this button does not react instantly. Both wheels will stop <b>randomly</b> and all pictures are equally likely.
+    </p>
+    <center><img align="middle" src="https://i.imgur.com/MoaANNO.png" alt="Game" class="center" style="width:50%;height:50%;"></center>
+    <p>
+        <br><br>You win the game if <b>both wheels show a shamrock</b>. If one of the wheels does not show a shamrock, you lose the game.
+    </p>
+    <center><img align="middle" src="https://i.imgur.com/YUadHbN.png" alt="Shamrocks" class="center" style="width:50%;height:50%;"></center>
+    <p>
+        <br><br>You can <b>choose how many rounds you want to play</b>. After each round, you will be asked whether you want to play another round or not. If you decide not to play another round, the game ends.
+    </p>
+</div>
+<div class="wrapper instructions">
+    <center><h4>How to earn money?</h4></center><br>
+    <p>
+        At the beginning of each round, you will receive some points. In the first round, you will receive <b>50 points</b>.
+        The points you receive will <b>decrease by 1</b> after each round. In the second round, you will receive 49 points and so on.
+        In case you continue playing until you reach 0 points, the game will end automatically.
+    </p>
+    <p>
+        Before the game starts, you must decide how many points you want to bet. The minimum bet is 1 point.
+        The maximum bet is all points you received for this round. If you win the game, you get <b>72 times</b> your bet added to your account.
+        If you lose the game, you lose the points you bet. The points that you do not bet will go directly into your account.
+    </p>
+    <p>
+        Here is an example. Suppose you receive 45 points and you bet 10 points.
+        If you win the game, 755 points are added to your account since you earn 72 times your bet of 10 points, plus the 35 points that you did not bet.
+        If you lose the game, only 35 points are added to your account.
+    </p>
+</div>
+<div class="wrapper instructions">
+    <p>
+        After each round, you will be asked whether you want to play another round or leave the game and move on to the next stage.
+        If you decide to leave the game, your account balance will be saved and converted into GBP at the end of the experiment.
+    </p>
+    <p>
+        Before the actual game starts, there will be a <b>trial round</b> which will <b>not affect your payoff</b>.
+        This is to help you get familiarized with the interface and the game.
+    </p>
+    <p>
+        <b>Attention:</b><br> For technical reasons, you will <b>lose your bet</b> if you <b>reload/refresh the game page</b>.<br> <br>
+        <b>Please make sure to NOT reload/refresh the game page</b>.
+    </p>
+    <br>
+</div>
+
+<button class="otree-btn-next btn btn-primary next-button otree-next-button">Start Comprehension Quiz</button>
+
+{% endblock %}

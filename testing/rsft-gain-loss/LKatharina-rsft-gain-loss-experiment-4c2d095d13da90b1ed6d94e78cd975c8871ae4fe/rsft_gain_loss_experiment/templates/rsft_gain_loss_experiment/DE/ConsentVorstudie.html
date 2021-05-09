@@ -1,0 +1,74 @@
+{% extends "rsft_gain_loss_experiment/Page.html" %}
+{% load otree static %}
+{% load i18n %}
+
+{% block title %}
+    {% blocktrans trimmed %}Information{% endblocktrans %}
+{% endblock %}
+
+
+{% block content %}
+  <div class = "dialogue" id = "checkdisplay">
+    <p>You need a screen wider than 800px for this study. Cellphones won't work, a tablet may work.</p>
+  </div>
+
+  <p> {% blocktrans trimmed %} Liebe Studieninteressentin, lieber Studieninteressent, <br> vielen Dank für Ihr Interesse an dieser Studie. Das Ziel dieser Studie ist es, menschliche Entscheidungen zu untersuchen. Die Studie dauert ungefähr {{duration}} Minuten.
+  {% endblocktrans %} </p>
+
+
+  <h3>{% blocktrans trimmed %}Ablauf der Studie{% endblocktrans %}</h3>
+  <p>{% blocktrans trimmed %} Die Studie, an der Sie nun teilnehmen werden, untersucht Entscheidungen. Im Verlauf der Studie werden Ihnen unterschiedliche Entscheidungsrunden präsentiert, in einigen geht es um das Sammeln von Punkten in anderen um die Abgabe von Punkten. Ihre Aufgabe ist es, die Entscheidungen so gut wie möglich zu treffen. Nach den Entscheidungsaufgaben folgen Fragen zu Ihrer Person. Ihre Aufgabe ist es diese Fragen wahrheitsgemäss zu beantworten. Die Fragen zu Ihrer Person können Fragen persönlicher Natur (z.B. über Ihre finanzielle Situation) beinhalten.
+  {% endblocktrans %}
+  </p>
+
+  
+  <!-- Die Aufwandsentschädigung erhalten Sie nur persönlich an der Universität Basel. Die Studie wird durch den Lehrstuhl für ökonomische Psychologie an der Universität Basel finanziert. -->
+
+  <h3>{% blocktrans trimmed %}Möglicher Nutzen und Risiken{% endblocktrans %}</h3>
+  <p>{% blocktrans trimmed %}
+  Durch Ihre Teilnahme an dieser Studie haben Sie die Möglichkeit, nähere Einblicke in die psychologische Forschung zu erhalten. Darüber hinaus helfen die Ergebnisse dieser Studie uns allen in unserem Verständnis zu menschlichem Entscheidungsverhalten.
+  Die Teilnahme an dieser Studie ist mit keinerlei gesundheitlichen Risiken verbunden.
+  {% endblocktrans %}
+  </p>
+
+  <h3>{% blocktrans trimmed %}Entschädigung{% endblocktrans %}</h3>
+  <p> {% blocktrans with fee=participation_fee n=num_vouchers%}
+  Personen, die an der Universität Basel Psychologie studieren, erhalten je nach Zeitaufwand Unterschriften als symbolische Aufwandsentschädigung (0.5 Unterschrift pro angefangene Viertelstunde).{% endblocktrans %}
+  </p>
+
+
+  <h3>{% blocktrans trimmed %}Datenschutz und Datenveröffentlichung{% endblocktrans %}</h3>
+  <p>{% blocktrans trimmed %} Alle in dieser Studie gesammelten Daten werden anonymisiert ausgewertet und für wissenschaftliche Zwecke verwendet. Die Ergebnisse werden anonymisiert und in einer Gruppe zusammengefasst auf wissenschaftlichen Konferenzen präsentiert und in wissenschaftlichen Zeitschriften und anderen Medien veröffentlicht.{% endblocktrans %}</p>
+
+  <p>{% blocktrans trimmed %}
+    Die de-identifizierten Daten — die Daten <u>ohne</u> Informationen, die Sie als Einzelperson identifizieren könnten — werden in einer Onlinedatenbank anderen Forschenden zur Verfügung gestellt, um den wissenschaftlichen Fortschritt zu beschleunigen. Wir werden alle persönlichen Informationen entfernen oder abändern bevor die Daten veröffentlicht werden, um zu verhindern, dass Sie, nach aktuellem Stand der Wissenschaft, als Einzelperson in den Daten identifizieren werden können. Die online geteilten Daten enthalten zum Beispiel Angaben zu Geschlecht, Alter, Beziehungsstatus, und die Einkommensklasse.
+  {% endblocktrans %}
+  </p>
+
+  <p>{% blocktrans trimmed %} Falls Sie sich für Hintergrund und Resultate der Studie interessieren, schreiben Sie gerne eine Email an laura.marbacher@unibas.ch oder an jana.jarecki@unibas.ch.
+  {% endblocktrans %}
+  </p>
+
+  <h3>{% blocktrans trimmed %}Freiwilligkeit{% endblocktrans %}</h3>
+  <p>{% blocktrans trimmed %}
+  Die Teilnahme an der Studie ist freiwillig. Sie haben jederzeit die Möglichkeit, ohne Angabe von Gründen die Studie abzubrechen.
+  Die Einwilligung zur Verwendung Ihrer Daten können Sie während der Studienteilnahme jederzeit per Email an laura.marbacher@unibas.ch widerrufen. Ein nachträglicher Widerruf nach Beendigung der Studie ist nicht möglich, da  die Daten in anonymisierter Form gespeichert werden. Das bedeutet, nach Beendigung der Studie ist es nicht mehr möglich, Ihre Daten aus der Gesamtheit der Daten zu löschen.
+  {% endblocktrans %}
+  </p>
+
+   <h3>{% blocktrans trimmed %}Fragen{% endblocktrans %}</h3>
+  <p>{% blocktrans trimmed %}
+  Falls Sie Fragen zu dieser Studie haben, senden Sie eine Email an laura.marbacher@unibas.ch oder an jana.jarecki@unibas.ch.
+  {% endblocktrans %}
+  </p>
+
+  <p><strong>{% blocktrans trimmed %}
+  Ich bin mindestens 18 Jahre alt und ich habe die aufgeführten Bedingungen gelesen und verstanden. Ich hatte genügend Zeit eine Entscheidung zu treffen. Mit Anklicken auf „Weiter“ bestätige ich, dass ich die Einverständniserklärung gelesen habe und an dieser Studie teilnehmen möchte. In diesem Fall speichern Sie sich bitte diese Einverständniserklärung für Ihre Unterlagen ab oder drucken diese Erklärung aus. Falls Sie nicht einverstanden sind, verlassen Sie die Studie bitte jetzt.
+  {% endblocktrans %}
+  </strong></p>
+
+  {% next_button %}
+
+{% endblock %}
+
+

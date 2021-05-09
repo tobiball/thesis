@@ -1,0 +1,109 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+{% load i18n %}
+
+
+{# ****************************************************************************************************************** #}
+{# *** STYLES *** #}
+{# ****************************************************************************************************************** #}
+{% block styles %}
+    <link href="{% static 'scl/css/custom.css' %}" rel="stylesheet">
+{% endblock %}
+
+
+
+{# ****************************************************************************************************************** #}
+{# *** TITLE *** #}
+{# ****************************************************************************************************************** #}
+{% block title %}
+   Thank you!
+{% endblock %}
+
+
+{# ****************************************************************************************************************** #}
+{# *** CONTENT *** #}
+{# ****************************************************************************************************************** #}
+{% block content %}
+    <div class="wrapper">
+
+        <div>
+        You chose the following lottery:
+        </div>
+
+        <br/>
+        <div class="card">
+            <table class="table">
+
+                <!-- ----------------------------------------------------------------------------------------------- -->
+                <!-- --- Table Header --- -->
+                <!-- ----------------------------------------------------------------------------------------------- -->
+                <thead>
+                    <tr class="header1">
+                        <!-- Lottery Number (Counter) -->
+                        <th></th>
+                        <th></th>
+
+                        <!-- A lotteries -->
+                        <th>Reward A</th>
+                        <th></th>
+
+                        <!-- B lotteries -->
+                        <th>Reward B</th>
+                        <th></th>
+
+                        <!-- radio select form fields -->
+                        <th></th>
+                    </tr>
+                    <tr class="header2">
+                        <!-- Lottery Number (Counter) -->
+                        <th>Lottery</th>
+                        <th></th>
+
+                        <!-- A lotteries -->
+                        <th>50% Chance</th>
+                        <th></th>
+
+                        <!-- B lotteries -->
+                        <th>50% Chance</th>
+                        <th></th>
+
+                        <!-- radio select form fields -->
+                        <th>Your Choice:</th>
+                    </tr>
+                </thead>
+
+                <!-- ----------------------------------------------------------------------------------------------- -->
+                <!-- --- Table Body --- -->
+                <!-- ----------------------------------------------------------------------------------------------- -->
+                <tbody>
+                    {% for i,lo,hi in lottery %}
+                        <tr>
+                            <!-- Lottery Number (Counter) -->
+                            <td>{{ index }}</td>
+                            <td></td>
+
+                            <!-- A lotteries -->
+                            <td>{{ lo }}</td>
+                            <td></td>
+
+                            <!-- B lotteries -->
+                            <td>{{ hi }}</td>
+                            <td></td>
+
+                            <!-- radio select form fields -->
+                            <td><input type="radio" name="lottery_choice" checked disabled></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <br/>
+        <div class="card info">
+            <p>At the end of the experiment, you will be rewarded depending on the result of the random draw.</p>
+        </div>
+
+        {% next_button %}
+    </div>
+{% endblock %}
+

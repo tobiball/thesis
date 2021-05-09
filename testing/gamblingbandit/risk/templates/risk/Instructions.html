@@ -1,0 +1,43 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+{% load i18n %}
+
+
+{# ****************************************************************************************************************** #}
+{# *** STYLES *** #}
+{# ****************************************************************************************************************** #}
+{% block styles %}
+    <link href="{% static 'scl/css/custom.css' %}" rel="stylesheet"/>
+{% endblock %}
+
+
+{# ****************************************************************************************************************** #}
+{# *** TITLE *** #}
+{# ****************************************************************************************************************** #}
+{% block title %}
+Lottery Task
+{% endblock %}
+
+
+{# ****************************************************************************************************************** #}
+{# *** CONTENT *** #}
+{# ****************************************************************************************************************** #}
+{% block content %}
+
+    <div class="wrapper instructions">
+        <p>
+            In the following task, <b>5 different lotteries</b> will be presented on your screen. <br>
+            In each of these lotteries, there are <b>two possible outcomes</b>, reward A and reward B.
+            Both rewards are <b>equally likely</b>, i.e. have a chance of exactly 50% to be chosen. <br> <br>
+            The rewards are denoted in points. These points will be converted into GBPs at the end of the experiment.
+        </p>
+        <p>
+            Your task is to <b>choose your favourite lottery</b>, which subsequently will be played out. A random generator
+            will determine whether you win reward A or reward B. You will see which reward you won at the end of the experiment.
+        </p>
+
+    </div>
+
+<button class="otree-btn-next btn btn-primary next-button otree-next-button">Start Lottery Task</button>
+
+{% endblock %}

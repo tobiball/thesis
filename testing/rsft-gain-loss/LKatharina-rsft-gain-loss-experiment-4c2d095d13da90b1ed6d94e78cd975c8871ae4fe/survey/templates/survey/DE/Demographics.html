@@ -1,0 +1,20 @@
+{% extends "exp_files/SurveyPage.html" %}
+{% load otree static %}
+
+{% block title %}
+    Demographische Daten
+{% endblock %}
+
+{% block content %}
+
+    <p>
+        Anschliessend bitten wir Sie um einige demographische Angaben.
+    </p>
+
+    {% for field in form %}
+        {% formfield field %}
+    {% endfor %}
+
+    {% next_button %}
+
+{% endblock %}

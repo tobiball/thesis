@@ -1,0 +1,43 @@
+{% extends "rsft_gain_loss_experiment/SurveyPage.html" %}
+{% load otree %}
+{% load otree static %}
+{% load i18n %}
+
+{% block title %}
+    {% blocktrans trimmed %}Gutscheinverlosung{% endblocktrans %}
+{% endblock %}
+
+
+{% block content %}
+  <p> {% blocktrans with fee=participation_fee n=num_vouchers%}
+  Unter allen Teilnehmern/innen, die diese Studie beenden, <b>verlosen</b> wir {{ n }} <b>Büchergutscheine</b> im Wert von je {{ fee }}, indem zufällig {{ n }} Probandencodes aus allen Probandencodes gezogen werden. Ihr Probandencode geht ein Mal in die Verlosung ein.
+  {% endblocktrans %}</p>
+
+
+  <p> {% blocktrans %}
+  Ihre <b>Gewinnchancen</b> können sich folgendermassen <b>verbessern</b>, abhängig von Ihren Entscheidungen: Nach Ihrer letzten Runde in dieser Studie wählen wir zufällig <b>fünf Runden</b> und zählen, wie oft Sie in diesen fünf Runden das jeweilige <b>Ziel erreicht</b> haben. Für jede Zielerreichung kommt Ihr Probandencode dann <b>ein Mal mehr</b> in die Verlosung. Ihr Probandencode geht also mindestens ein und höchstens sechs Mal in die Verlosung ein.
+  {% endblocktrans %}</p>
+
+    <p class = 'example1'>
+  {% blocktrans with example_pay=example_pay rwc_pp=real_world_currency_per_point%}
+    Sie haben in drei von fünf relevanten Runden das Ziel erreicht. Ihr Probandencode geht nun anstatt 1 Mal&nbsp;1 + 3 = 4 Mal, in die Verlosung mit ein.
+   {% endblocktrans %}
+  </p>
+
+  <p> {% blocktrans %}
+    Wichtig ist, dass sich Ihre Gewinnchance nur für Runden erhöht, in denen Sie das Ziel erreicht haben (d.h. nur wenn Sie beim Punkte sammeln mindestens den Schwellenwert erreicht und beim Punkte abgeben den Schwellenwert nicht unterschritten haben).
+  {% endblocktrans %}</p>
+
+  <h3>{% blocktrans trimmed %}
+    Bitte beantworten Sie diese Verständnisfragen richtig.
+  {% endblocktrans %}</h3>
+
+<p> {% blocktrans %} <b>Wie häufig geht Ihr Probandencode in die Verlosung ein, wenn...</b>
+  {% endblocktrans %}</p>
+
+
+  {% formfields %}
+
+  {% next_button %}
+
+{% endblock %}

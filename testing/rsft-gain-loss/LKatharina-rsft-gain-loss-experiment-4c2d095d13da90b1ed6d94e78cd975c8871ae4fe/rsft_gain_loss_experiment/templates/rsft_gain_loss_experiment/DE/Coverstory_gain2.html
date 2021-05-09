@@ -1,0 +1,60 @@
+{% extends "rsft_gain_loss_experiment/Page.html" %}
+{% load otree static %}
+{% load i18n %}
+
+{% block title %}
+    {% blocktrans trimmed %}Aufgabe beim Punkte sammeln{% endblocktrans %}
+{% endblock %}
+
+
+{% block content %}
+  <h3>{% blocktrans trimmed %}Beispiel für Punktestand und Schwellenwert{% endblocktrans %}</h3>
+  
+  <p>{% blocktrans trimmed %}
+  Die nachfolgende Grafik zeigt einen möglichen Punktestand und Schwellenwert am Anfang einer Runde. Im Beispiel starten Sie mit -29 Punkten. Der Schwellenwert beträgt 0 Punkte.  Das <b>Ziel</b> ist es <b>0 oder mehr Punkte zu erreichen</b>.{% endblocktrans %}</p>
+
+  <p>
+  <img src='{% static "img/gain4.png" %}'/ width = '600px'>
+  </p>
+
+  <p>{% blocktrans trimmed %}
+  Ein zweites Beispiel: Ihr Punktestand beträgt 0, der Schwellenwert ist +29. Das <b>Ziel</b> ist es <b>+29 oder mehr Punkte zu erreichen</b>.{% endblocktrans %}</p>
+
+  <p>
+  <img src='{% static "img/gain1.png" %}'/ width = '600px'>
+  </p>
+
+
+  <h3>{% blocktrans trimmed %}Beispiel für Punkte sammeln{% endblocktrans %}</h3>
+  <p>{% blocktrans trimmed %}
+    Stellen Sie sich vor, Sie haben eine Option gewählt und +5&nbsp;Punkte erhalten. Ihr Punktestand erhöht sich von 0 auf +5&nbsp;Punkte (siehe unten).{% endblocktrans %}
+  </p>
+
+   <div class = "flex-row">
+    <div>
+      <img class = 'center' src='{% static "img/gain2.png" %}'/ width = '80%'>
+      <p class = 'example3'>
+      {% blocktrans trimmed %}
+      Punktestand: 0 Punkte
+      {% endblocktrans %}
+      </p>
+    </div>
+    <div>
+      <img class = 'center' src='{% static "img/gain3.png" %}'/ width = '80%'>
+       <p class = 'example4'>
+        {% blocktrans trimmed %}
+        Punktestand: +5 Punkte
+      {% endblocktrans %}
+      </p>
+    </div>
+   </div>
+
+  <h3>{% blocktrans trimmed %}Übungsrunde{% endblocktrans %}</h3> 
+  <p>{% blocktrans trimmed %}
+      <b>Auf der nächsten Seite folgt eine Übungsrunde. Diese Runde dient dem Kennenlernen. Klicken Sie auf "Weiter". Wählen Sie dann eine Option durch Anklicken aus.</b>{% endblocktrans %}</p>
+
+
+  {% next_button %}
+
+{% endblock %}
+

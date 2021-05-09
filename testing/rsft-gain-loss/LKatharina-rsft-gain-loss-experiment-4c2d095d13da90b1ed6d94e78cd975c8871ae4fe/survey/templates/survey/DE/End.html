@@ -1,0 +1,18 @@
+{% extends "exp_files/Page.html" %}
+{% load otree static %}
+
+{% block title %}Ende
+{% endblock %}
+
+{% block content %}
+<p> Sie haben die Studie nun beendet. Herzlichen Dank für Ihre Teilnahme an unserer Studie. Sie haben uns damit sehr unterstützt.
+  Sie erhalten binnen 6 Monaten per Email Bescheid, ob Sie bei der Verlosung gewonnen haben. Die Email wird an dieselbe Emailadresse versendet,
+  die Sie für Baps verwenden. Für weitere Informationen oder bei Fragen kontaktieren Sie bitte laura.marbacher@unibas.ch oder jana.jarecki@unibas.ch. </p>
+ 
+ <p> Klicken Sie <a href="https://baps.sona-systems.com/webstudy_credit.aspx?experiment_id=1207&credit_token=d09b8d5f8eb940e990bf7d62b8153eb1&survey_code={{label}}" >hier</a> um auf Baps zurückzukehren.<p>
+
+<div>
+  <span class = 'hidden'>{% next_button %}</span>
+</div>
+
+{% endblock %}

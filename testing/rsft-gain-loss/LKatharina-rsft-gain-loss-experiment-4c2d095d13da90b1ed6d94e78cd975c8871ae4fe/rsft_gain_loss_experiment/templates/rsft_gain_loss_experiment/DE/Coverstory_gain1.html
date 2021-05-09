@@ -1,0 +1,47 @@
+{% extends "rsft_gain_loss_experiment/Page.html" %}
+{% load otree static %}
+{% load i18n %}
+
+{% block title %}
+    {% blocktrans trimmed %}Aufgabe beim Punkte sammeln{% endblocktrans %}
+{% endblock %}
+
+
+{% block content %}
+  <p> {% blocktrans trimmed %}
+    Hier lernen Sie die Darstellung und den Ablauf von Entscheidungsrunden (Runden) kennen, in denen um das Punkte sammeln geht.
+  {% endblocktrans %}
+  </p>
+  <h3>{% blocktrans trimmed %}Beispiel für Optionen{% endblocktrans %}</h3>
+  
+  <p>{% blocktrans trimmed %}
+  Sie werden <b>5 Mal</b> zwischen <b>zwei Optionen</b> wählen, um <b>Punkte zu sammeln</b> und einen <b>Schwellenwert zu erreichen</b>.
+      Die nachfolgende Grafik zeigt mögliche Optionen in einer Runde. Jede Option führt mit einer <b>gewissen Wahrscheinlichkeit</b> zu einer <b>gewissen Anzahl an Punkten</b>.
+      Sie wählen eine <b>Option durch Anklicken</b>. Danach sehen Sie, wie viele Punkte Sie erhalten. Egal wie oft Sie eine Option wählen, alle gezeigten Wahrscheinlichkeiten bleiben in einer Runde gleich.
+  {% endblocktrans %}</p>
+
+   <div class = "flex-row">
+    <div>
+      <img class = 'center' src='{% static "img/gop1m.png" %}'/ width = '70%'>
+      <p class = 'example2'>
+      {% blocktrans trimmed %}
+      Mit dieser Option erhalten Sie +7&nbsp;Punkte mit 20&nbsp;% Wahrscheinlichkeit oder +5 Punkt mit 80&nbsp;% Wahrscheinlichkeit.
+      {% endblocktrans %}  
+      </p>
+    </div>
+    <div>
+      <img class = 'center' src='{% static "img/gop2.png" %}'/ width = '70%'>
+       <p class = 'example2'>
+        {% blocktrans trimmed %}
+        Mit dieser Option erhalten Sie +9&nbsp;Punkte mit 40&nbsp;% Wahrscheinlichkeit, oder 3&nbsp;Punkte mit 60&nbsp;% Wahrscheinlichkeit.
+      {% endblocktrans %}  
+      </p>
+    </div>
+   </div>
+
+   <p>{% blocktrans trimmed %}Auf der nächsten Seite sehen Sie ein Beispiel für den Schwellenwert beim Punkte sammeln. {% endblocktrans %} </p>
+
+  {% next_button %}
+
+{% endblock %}
+

@@ -1,0 +1,93 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+{% load i18n %}
+
+{% block styles %}
+    <link href="{% static 'scl/css/custom.css' %}" rel="stylesheet"/>
+{% endblock %}
+
+{% block title %}
+    Summary
+{% endblock %}
+
+{% block content %}
+<div class="wrapper instructions">
+<h4>Dear participant,</h4>
+<p>
+    Thank you for taking part in our experiment.
+    <br><br>
+
+    You completed the experiment. Therefore, you earn <b>600 points</b>.
+    <br><br>
+
+    In the lottery task, <b>reward {{ risk_outcome }}</b> was chosen. Therefore, your earnings for this task are <b>{{ risk_payoff }}</b>.
+    <br><br>
+
+    In the game, you earned <b>{{ game_payoff }}</b>.
+    <br><br>
+
+    You made <b>{{ survey_mistakes }} mistakes</b> (out of 1) during the survey. Therefore, your earnings for this task are <b>{{ survey_payoff }}</b>.
+    <br><br>
+
+    You can see the summary of your earnings for each task in the following table.
+</p>
+</div>
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;border-color:#aaa;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-top-width:1px;border-bottom-width:1px;border-color:#aaa;color:#333;background-color:#fff;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-top-width:1px;border-bottom-width:1px;border-color:#aaa;color:#fff;background-color:#f38630;}
+.tg .tg-x5q1{font-size:16px;text-align:right;vertical-align:top}
+.tg .tg-vox4{font-weight:bold;font-size:16px;text-align:left;vertical-align:top}
+.tg .tg-cqfb{font-size:16px;text-align:left;vertical-align:middle}
+.tg .tg-ltad{font-size:14px;text-align:left;vertical-align:top}
+.tg .tg-0lax{text-align:right;vertical-align:top}
+@media screen and (max-width: 767px) {.tg {width: auto !important;}.tg col {width: auto !important;}.tg-wrap {overflow-x: auto;-webkit-overflow-scrolling: touch;}}</style>
+
+    <div class="tg-wrap">
+        <table class="tg" style="margin-left:auto;margin-right:auto;">
+          <tr>
+            <th class="tg-cqfb">Task</th>
+            <th class="tg-x5q1">Earnings</th>
+          </tr>
+          <tr>
+            <td class="tg-ltad">Completion</td>
+            <td class="tg-0lax">600 points</td>
+          </tr>
+          <tr>
+            <td class="tg-ltad">Lottery&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td class="tg-0lax">{{ risk_payoff }}</td>
+          </tr>
+          <tr>
+            <td class="tg-ltad">Game</td>
+            <td class="tg-0lax">{{ game_payoff }}</td>
+          </tr>
+          <tr>
+            <td class="tg-ltad">Survey</td>
+            <td class="tg-0lax">{{ survey_payoff }}</td>
+          </tr>
+          <tr>
+            <td class="tg-vox4">Total</td>
+              <td class="tg-0lax"><b>{{ total_payoff }}</b></td>
+          </tr>
+        </table>
+    </div>
+
+
+<div class="wrapper instructions">
+    <p>
+        Given the conversion rate, this means you earn <b>{{ points }}/800 = {{ euro_payoff }} GBP</b>.
+    </p>
+    The amount of <b>{{ euro_payoff }} GBP</b> will be credited to your account.
+    Thank you for your time.
+    <p>
+        Click <a href="https://app.prolific.ac/submissions/complete?cc=86874465">here</a> to be
+        redirected to Prolific's completion page.
+        <br>
+    </p>
+</div>
+
+
+{% endblock %}
+
+

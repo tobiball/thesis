@@ -1,0 +1,15 @@
+{% extends "exp_files/SurveyPage.html" %}
+{% load otree static %}
+
+{% block title %}Datenqualität
+{% endblock %}
+
+{% block content %}
+
+    {% for field in form %}
+        {% formfield field %}
+    {% endfor %}
+
+    {% next_button %}
+
+{% endblock %}

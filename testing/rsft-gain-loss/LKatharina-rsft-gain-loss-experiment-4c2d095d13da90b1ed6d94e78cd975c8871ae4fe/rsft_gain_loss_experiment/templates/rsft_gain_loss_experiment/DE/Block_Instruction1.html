@@ -1,0 +1,50 @@
+{% extends "rsft_gain_loss_experiment/Page.html" %}
+{% load otree static %}
+{% load i18n %}
+
+{% block title %}
+  {% if budget > 0  %}
+  {% blocktrans trimmed %} Punkte sammeln {% endblocktrans %}
+  {% elif budget == 0 %}
+     {% if pstart < 0 %}
+     {% blocktrans trimmed %} Punkte sammeln {% endblocktrans %}
+   	 {% else %}
+     {% blocktrans trimmed %} Punkte abgeben {% endblocktrans %}
+     {% endif %}
+  {% else %}
+  {% blocktrans trimmed %} Punkte abgeben {% endblocktrans %}
+  {% endif %}
+{% endblock %}
+
+
+{% block content %}
+  <p>{% blocktrans trimmed %} In diesem Block sehen Sie {{ num_blocks }} Entscheidungsrunden.{% endblocktrans %}
+      {% if budget > 0  %}
+      {% blocktrans trimmed %}
+      In diesen Runden wählen sie zwischen Optionen die <b>Punkte ergeben</b>. Ihr Ziel ist es den <b>Schwellenwert zu erreichen oder zu überschreiten</b>.
+      {% endblocktrans %}
+      {% elif budget == 0 %}
+        {% if pstart < 0 %}
+        {% blocktrans trimmed %}
+      In diesen Runden wählen sie zwischen Optionen die <b>Punkte ergeben</b>. Ihr Ziel ist es den <b>Schwellenwert zu erreichen oder zu überschreiten</b>.
+        {% endblocktrans %}
+        {% else %}
+        {% blocktrans trimmed %}
+      In diesen Runden wählen sie zwischen Optionen die <b>Punkte abziehen</b>. Ihr Ziel ist es den <b>Schwellenwert nicht zu unterschreiten</b>.
+        {% endblocktrans %}
+        {% endif %}
+      {% else %}
+      {% blocktrans trimmed %}
+      In diesen Runden wählen sie zwischen Optionen die <b>Punkte abziehen</b>. Ihr Ziel ist es den <b> Schwellenwert nicht zu unterschreiten</b>.
+      {% endblocktrans %}
+      {% endif %}
+    </p>
+
+<p>{% blocktrans trimmed %}
+  Mit "Weiter" gelangen Sie zur ersten Entscheidungsrunde.
+{% endblocktrans %}</p>
+
+  {% next_button %}
+
+{% endblock %}
+

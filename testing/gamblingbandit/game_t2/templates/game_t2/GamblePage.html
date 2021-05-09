@@ -1,0 +1,289 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+<center><h6>You win if <br> <b>both wheels show a shamrock</b></h6></center>
+{% endblock %}
+
+{% block content %}
+
+<style>
+.carousel-inner.vertical {
+  border-radius: 2.3px;
+  border: 0.2px solid #444444;
+  box-shadow: 0px -1.5px 1px 2px #333333, 0px -1px 1px 1.3px #000000, 0px 1.5px 2px 2.5px #444444;
+  height: 100%;
+}
+.carousel-inner.vertical > .item {
+  -webkit-transition: .2s ease-in-out top;
+  -o-transition: .2s ease-in-out top;
+  transition: .2s ease-in-out top;
+}
+@media all and (transform-3d),
+(-webkit-transform-3d) {
+  .carousel-inner.vertical > .item {
+    -webkit-transition: -webkit-transform .2s ease-in-out;
+    -o-transition: -o-transform .2s ease-in-out;
+    transition: transform .2s ease-in-out;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    perspective: 1000;
+  }
+  .carousel-inner.vertical > .item.next,
+  .carousel-inner.vertical > .item.active.right {
+    top: 0;
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+  }
+  .carousel-inner.vertical > .item.prev,
+  .carousel-inner.vertical > .item.active.left {
+    top: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+  .carousel-inner.vertical > .item.next.left,
+  .carousel-inner.vertical > .item.prev.right,
+  .carousel-inner.vertical > .item.active {
+    top: 0;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+.carousel-inner.vertical > .active {
+  top: 0;
+}
+.carousel-inner.vertical > .next,
+.carousel-inner.vertical > .prev {
+  top: 0;
+  height: 100%;
+  width: auto;
+}
+.carousel-inner.vertical > .next {
+  left: 0;
+  top: 100%;
+}
+.carousel-inner.vertical > .prev {
+  left: 0;
+  top: -100%
+}
+.carousel-inner.vertical > .next.left,
+.carousel-inner.vertical > .prev.right {
+  top: 0;
+}
+.carousel-inner.vertical > .active.left {
+  left: 0;
+  top: -100%;
+}
+.carousel-inner.vertical > .active.right {
+  left: 0;
+  top: 100%;
+}
+
+.otree-body {
+  max-width:1300px
+}
+
+.bandit-inner {
+  border-radius: 4px;
+  border: 1.8px solid #010101;
+  height: 210px;
+  padding-top: 20px;
+  padding-left: 16px;
+  padding-bottom: 20px;
+  padding-right: 16px;
+  background: linear-gradient(to bottom, #b52222, #5c0d0d);
+}
+.bandit-outer {
+  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+  border-radius: 15px;
+  border: 2.2px solid #010101;
+  height: 280px;
+  padding-top: 20px;
+  padding-left: 15px;
+  padding-bottom: 10px;
+  padding-right: 15px;
+  background: linear-gradient(to bottom, #303030, #000000);
+}
+
+</style>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<div class="container" style="width:476px">
+<div class="bandit-outer" style="width:444px">
+<div class="bandit-inner">
+<div style="float:left">
+  <div id="myCarousel" class="carousel slide" data-ride="carousel" data-pause="false" data-keyboard="false" data-interval="400">
+    <div class="carousel-inner vertical" role="listbox">
+      <div class="item active">
+        <img src="{{ url1 }}" alt="1">
+      </div>
+      <div class="item">
+        <img src="{{ url2 }}" alt="2">
+      </div>
+      <div class="item">
+        <img src="{{ url3 }}" alt="3">
+      </div>
+      <div class="item">
+        <img src="{{ url4 }}" alt="4">
+      </div>
+      <div class="item">
+        <img src="{{ url5 }}" alt="5">
+      </div>
+      <div class="item">
+        <img src="{{ url6 }}" alt="6">
+      </div>
+    </div>
+  </div>
+</div>
+<div style="float:right">
+  <div id="myCarousel2" class="carousel slide" data-ride="carousel" data-pause="false" data-keyboard="false" data-interval="400">
+    <div class="carousel-inner vertical" role="listbox">
+      <div class="item active">
+        <img src="{{ url7 }}" alt="1">
+      </div>
+      <div class="item">
+        <img src="{{ url8 }}" alt="2">
+      </div>
+      <div class="item">
+        <img src="{{ url9 }}" alt="3">
+      </div>
+      <div class="item">
+        <img src="{{ url10 }}" alt="4">
+      </div>
+      <div class="item">
+        <img src="{{ url11 }}" alt="5">
+      </div>
+      <div class="item">
+        <img src="{{ url12 }}" alt="6">
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="container" style="width:120px">
+<div class="wrapper" style="text-align:center;">
+
+<br>
+
+<button type="button" name="start" id="start_button" value="True" class="btn btn-success btn-lg btn-block" disabled>
+    START
+</button>
+<br>
+<button type="button" name="stopped" id="stop_button" value="True" class="btn btn-danger btn-lg btn-block" disabled>
+    STOP
+</button>
+
+<input type="hidden" id="input_time_clicked" name="time_clicked">
+<input type="hidden" id="input_current_picture" name="last_picture_viewed">
+<input type="hidden" id="input_current_picture2" name="last_picture_viewed2">
+
+
+<br>
+<br>
+<button type="button" name="continue" id="continue_button" onclick="submit2()" class="btn btn-primary" disabled>
+  Result
+</button>
+</div>
+</div>
+<script>
+        var startTime, endTime, current_picture, random_picture, stoploop;
+        var resultSlot_1, resultSlot_2, timeSlot;
+
+        $(document).ready(function () {
+            setTimeout(function(){
+              $("#myCarousel").carousel('pause');
+              $("#myCarousel2").carousel('pause');
+              $("#start_button").prop("disabled",false);
+            }, 399);
+            startTime = new Date();
+            stoploop = 0;
+            stoploop2 = 0;
+            random_picture = {{ random_pos|json }}
+        });
+
+        $('#start_button').click(function() {
+            $(this).prop("disabled",true);
+            $("#myCarousel").carousel('cycle');
+            $("#myCarousel2").carousel('cycle');
+            setTimeout(function(){
+              $("#stop_button").prop("disabled",false);
+            }, 2000);
+        });
+
+
+
+        $('#stop_button').click(function() {
+            var delay = Math.floor(Math.random() * 500);
+            setTimeout(function(){
+              $("#stop_button").prop("disabled",true);
+              $("#myCarousel").carousel('pause');
+              setTimeout(function(){
+                endTime = new Date();
+                var timeDiff = endTime - startTime; //in ms
+
+                // get seconds
+                var mseconds = Math.round(timeDiff);
+                timeSlot = mseconds;
+
+
+                // get last picture the participant saw
+                var current_picture = $('#myCarousel div.active').index();
+                console.log(current_picture + ". Picture");
+                resultSlot_1 = current_picture
+                //$('#input_current_picture').val(current_picture);
+                stopcarousel();
+              }, 1000);
+            }, delay);
+        });
+
+        function stopcarousel() {
+            setTimeout(function () {
+                var current_picture2 = $('#myCarousel2 div.active').index();
+                if ( current_picture2 == random_picture && stoploop == 0) {
+                      setTimeout(function () {
+                        stopcarousel2();
+                      }, 1000);
+                      stoploop =1;
+                }
+                if ( stoploop == 0 ) {
+                      stopcarousel();
+                }
+                }, 10);
+        }
+
+        function stopcarousel2() {
+            setTimeout(function () {
+                var current_picture2 = $('#myCarousel2 div.active').index();
+                if ( current_picture2 == random_picture && stoploop2 == 0 ) {
+                   $("#myCarousel2").carousel('pause');
+                   setTimeout(function () {
+                      current_picture2 = $('#myCarousel2 div.active').index();
+                      resultSlot_2 = current_picture2
+                      // $('#input_current_picture2').val(current_picture2);
+                      $("#continue_button").prop("disabled",false);
+                   }, 1000);
+                   stoploop2 = 1;
+                }
+                if ( stoploop2 == 0 ) {
+                      stopcarousel2();
+                }
+                }, 10);
+        }
+
+        function submit2(){
+          $('#input_current_picture2').val(resultSlot_2);
+          $('#input_current_picture').val(resultSlot_1);
+          $('#input_time_clicked').val(timeSlot);
+          document.getElementById("form").submit()
+        }
+
+
+</script>
+
+
+{% endblock %}

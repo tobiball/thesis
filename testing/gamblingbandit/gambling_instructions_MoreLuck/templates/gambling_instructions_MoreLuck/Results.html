@@ -1,0 +1,20 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+{% load i18n %}
+
+{% block styles %}
+    <link href="{% static 'scl/css/custom.css' %}" rel="stylesheet"/>
+{% endblock %}
+
+{% block title %}
+    Thank you!
+{% endblock %}
+
+{% block content %}
+<div class="wrapper instructions">
+    <p>You will see a summary of your results of the quiz at the end of the experiment.</p>
+</div>
+<button class="otree-btn-next btn btn-primary next-button otree-next-button">Start Game</button>
+{% endblock %}
+
+
