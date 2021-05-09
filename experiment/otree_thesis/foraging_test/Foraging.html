@@ -1,0 +1,59 @@
+{{ block title }} <center> Clearing {{ clearing_number}} of 4 in Forrest </center> {{ endblock }}
+
+{% block content %}
+
+<head>
+<!--<style>-->
+<!--.button {-->
+<!--  color: black;-->
+<!--  padding: 40px 60px;-->
+<!--  text-align: center;-->
+<!--  text-decoration: none;-->
+<!--  display: inline-block;-->
+<!--  font-size: 40px;-->
+<!--  margin: 4px 2px;-->
+<!--  cursor: pointer;-->
+<!--}-->
+
+<!--</style>-->
+<style>
+    .buttons {
+        width: 100%;
+        table-layout: fixed;
+        border-collapse: collapse;
+        font-family: "Helvetica";
+        font-size: 22px;
+    }
+
+    .buttons button {
+        width: 100%;
+        height: 80px;
+    }
+    .fit {
+        width: 50%;
+    }
+
+</style>
+
+</head>
+<body>
+
+<!--img src="{{ 'https://aux.iconspalace.com/uploads/2039219649.png' }}"/>
+<img src="{{ 'https://www.linda.nl/lindanl-assets/uploads/2020/04/30204505/bescherming-wolf-e1588272333825-600x338.jpg' }}"/-->
+
+<img class = "fit" id='shrooms' src= {{ static gain_image }} /><img class="fit" id='wolf' src= {{ static threat_image }} />
+
+
+<!--<p>Please decide if you would like to FORAGE or LEAVE</p>-->
+
+<table class=buttons>
+    <tr>
+        <td><button class= "button" name="foraging_choice" value="True"><b>FORAGE</b></button>
+        <td><button class= "button" name="foraging_choice" value="False"><b>LEAVE</b></button>
+</table>
+
+<!--<button class= "button" name="foraging_choice" value="True">FORAGE</button>-->
+<!--<button class= "button" name="foraging_choice" value="False">LEAVE</button>-->
+<!--{{ form.foraging_choice.errors }}-->
+</body>
+{% endblock %}

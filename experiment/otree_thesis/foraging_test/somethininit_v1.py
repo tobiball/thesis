@@ -15,24 +15,13 @@ class Constants(BaseConstants):
     name_in_url = 'foraging_test'
     players_per_group = None
     num_rounds = 4
-    probability_vector_gain = []
-    probability_vector_threat = []
-    for one in range(4):
-        probability_vector_gain.append(round(randrange(1, 5) * 0.15, 2))  ### integrate images in these two lines
-        probability_vector_threat.append(round(randrange(1, 5) * 0.1, 1))
 
 
 #    factor = yay.b
 
 
 class Subsession(BaseSubsession):
-    """
-    Creates run details
-    """
-
-    def parameters_run(self):
-        self.probability_gain = Constants.probability_vector_gain[(self.round_number - 1)]
-        self.probability_threat = Constants.probability_vector_threat[(self.round_number - 1)]
+    pass
 
 
 class Group(BaseGroup):
@@ -58,7 +47,22 @@ class Player(BasePlayer):
 
 
 # SYSTEM
+class Engine():
+    """
+    Creates run details
+    """
 
+    def __init__(self):
+        self.probability_vector_gain = []
+        self.probability_vector_threat = []
+        for one in range(4):
+            self.probability_vector_gain.append(
+                round(randrange(1, 5) * 0.15, 2))  ### integrate images in these two lines
+            self.probability_vector_threat.append(round(randrange(1, 5) * 0.1, 1))
+
+    def parameters_run(self, player):
+        self.probability_gain = self.probability_vector_gain[(player.round_number - 1)]
+        self.probability_threat = self.probability_vector_threat[(player.round_number - 1)]
 
     # def trial_outcome(self, player):
     #     choose_to_forage = player.foraging_choice
@@ -72,7 +76,7 @@ class Player(BasePlayer):
     #                 self.success = True
 
 
-#En = Subsession()  ## where to best initiate? Session?
+En = Engine()  ## where to best initiate? Session?
 
 
 # PAGES
@@ -81,9 +85,9 @@ class Foraging(Page):
     form_fields = ["foraging_choice"]
 
     def vars_for_template(player: Player):
-        Subsession.parameters_run()
-        gain_percent = int(Subsession.probability_gain * 100)
-        threat_percent = int(Subsession.probability_threat * 100)
+        En.parameters_run(player)
+        gain_percent = int(En.probability_gain * 100)
+        threat_percent = int(En.probability_threat * 100)
         return {
             "gain_percent": gain_percent,
             "threat_percent": threat_percent
