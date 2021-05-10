@@ -10,13 +10,6 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="/analysis/policy_calculations/optimal_policy.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
       </map>
     </option>
   </component>
