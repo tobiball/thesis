@@ -31,7 +31,7 @@ model_fit_evaluation <- function(behavioural_data) {
   #Remove na participants
   df_behaviour_raw <- head(df_behaviour_raw,4)
 
-  #Equalise all trial times to compare all trials simultaniously
+  #Equalise all trial times to compare all trials simultaniously reegardless of rounds
   df_behaviour <- setNames(data.frame(matrix(ncol = 6, nrow = 0)), c("participant_id", "player_choice", "probability_gain","probability_threat","payoff","clearing_nr"))
   for (num in 1:8)   ###Derive forrest from trial_nr, required for payoff calculation
     {
@@ -55,7 +55,7 @@ model_fit_evaluation <- function(behavioural_data) {
          mutate(wealth_state = cumsum(payoff) - payoff)
 
   #Get optimal policy decsion from python script
-  df_optimal_policy <- (read.csv('optimal_policy.csv'))
+  df_optimal_policy <- (read.csv('../optimal_policy.csv'))
 
   #Combine real with policy results in data_frame
   df_combined <- dplyr::left_join(df_behaviour,df_optimal_policy)
@@ -67,12 +67,23 @@ model_fit_evaluation <- function(behavioural_data) {
   model_gain <- lm(df_combined$player_choice~df_combined$probability_gain)
   model_threat <- lm(df_combined$player_choice~df_combined$probability_threat)
 
-  #Summarise models in data_frame
+  #Retain models BIC's in data_frame
   bic_summary <- data.frame(Model = c("model_optimal", "model_gain", "model_threat"),
   BIC = c(BIC(model_optimal), BIC(model_gain), BIC(model_threat)), stringsAsFactors = FALSE)
 
+  #Select best model
+  #TODO
+
+  #Test best model in combination with other models
+  #TODO
+
+  #Return all evaluated models in table
   return(bic_summary)
 
 }
 
+#Run model fit function to get BIC's table (and best models)
 model_fit_evaluation("behavioural_data_control_group.csv")
+
+#Compare models of different treatments with each other
+#TODO -> run for loop over treatment data_frames and select method for comparison
