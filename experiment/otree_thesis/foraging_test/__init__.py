@@ -10,13 +10,13 @@ doc = """
 
 """
 
-#####TREAAAAAAAAAAAAAAAAAAAAAAATTTTTTTTTTTTTTTTTTTTTTM3E3333333333333333333333333333333NNNNNNNNNNNNNNNTTTTTTTTTTTTTTTTTTTTTT FIIIIIIIIIIIIIIIIIIIIIIEEEEEEEEEEEEEEEEEEELLLLLLLLLLLLLDDDDDD
+
 # Models
 class Constants(BaseConstants):
     name_in_url = 'foraging_test'
     players_per_group = None
     num_rounds = 16
-    induction_videos = {'joy':'sloths_', 'control':'wasps_'}
+    induction_videos = {'joy':'sloths_','fear':'wasps_', 'control':'birds_'}
     probability_vector_gain = []
     probability_vector_threat = []
     probability_graphics_gain = {
@@ -63,17 +63,18 @@ class Player(BasePlayer):
         self.probability_threat = Constants.probability_vector_threat[(self.round_number - 1)]  # Move to player?
         self.probability_gain = Constants.probability_vector_gain[(self.round_number - 1)]
 
-
     def trial_position(self):
         """
         Tracks the position the subjects are in, in the experiment
         (1) self.participant.trial_in_game shows position in experiment (1-16)
             this can differ from round number because trials can be skipped in case of death
         (2) self.clearing_number tracks position in forrest
+        (3) Initiates self.participant.forrest_payoff variable
         """
-        #(1)
+        # (1)
         if self.round_number == 1:
             self.participant.trial_in_game = 1
+            self.participant.forrest_payoff = 0
         else:
             previous_player = self.in_round(self.round_number - 1)
             trial_in_game_mod = self.participant.trial_in_game % 4
@@ -82,7 +83,7 @@ class Player(BasePlayer):
             else:
                 self.participant.trial_in_game += 1
         self.trial_in_game = self.participant.trial_in_game
-        #(2)
+        # (2)
         self.clearing_number = self.participant.trial_in_game % 4  # clearing number is always between 1 and 4
         if self.clearing_number == 0:
             self.clearing_number = 4
@@ -99,17 +100,28 @@ class Player(BasePlayer):
             else:
                 if draw < self.probability_threat + self.probability_gain:
                     self.success = True
-                    self.payoff += 1
 
     def induction_flag(self):
         self.participant.induction_flag = False
         if self.clearing_number == 4 or self.death:
             self.participant.induction_flag = True
 
+    def participant_payoff(self):
+        """
+        Adds forrest payoff to total payoff
+        """
+        if self.death:
+            self.participant.forrest_payoff = 0
+        elif self.clearing_number == 4:
+            self.participant.payoff += self.participant.forrest_payoff
+            self.participant.forrest_payoff = 0
+
+
 def creating_session(subsession):
-    emotions = itertools.cycle(['joy', 'control'])
+    emotions = itertools.cycle(['joy', 'fear', 'control'])
     for player in subsession.get_players():
         player.participant.treatment = next(emotions)
+
 
 # Pages
 class Induction(Page):
@@ -126,8 +138,9 @@ class Induction(Page):
         if self.round_number == 1:
             self.participant.video_nr = 0
         self.participant.video_nr += 1
-        # print((self.participant.treatment))
-        return {"video": "{}{}.mp4".format(Constants.induction_videos[self.participant.treatment], self.participant.video_nr)}
+        return {"video": "{}{}.mp4".format(Constants.induction_videos[self.participant.treatment],
+                                           self.participant.video_nr)}
+
 
 class Foraging(Page):
     form_model = "player"
@@ -149,18 +162,18 @@ class Results(Page):
 
     def vars_for_template(player: Player):
         player.trial_outcome()
-        success = player.success
-        death = player.death
-        if death:
+        if player.death:
             message = "-"
-        elif success:
+        elif player.success:
             message = "1"
+            player.participant.forrest_payoff += 1  # track payoff for forrest
         else:
             message = "0"
-        return {"message": message,}
+        return {"message": message, }
 
     @staticmethod
     def app_after_this_page(player, upcoming_apps):
+        player.participant_payoff()
         player.induction_flag()
         if player.participant.trial_in_game >= 16 or player.participant.trial_in_game > 12 and player.death:
             return upcoming_apps[0]
