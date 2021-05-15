@@ -1,4 +1,4 @@
-{{ block title }} Clearing {{ subsession.round_number }} of {{ Constants.num_rounds }} in Forrest {{ endblock }}
+{{ block title }} <center> Clearing {{ clearing_number}} of 4 in Forrest </center> {{ endblock }}
 
 {% block content %}
 
@@ -16,17 +16,6 @@
 <!--}-->
 
 <!--</style>-->
-</head>
-<body>
-
-<!--img src="{{ 'https://aux.iconspalace.com/uploads/2039219649.png' }}"/>
-<img src="{{ 'https://www.linda.nl/lindanl-assets/uploads/2020/04/30204505/bescherming-wolf-e1588272333825-600x338.jpg' }}"/-->
-
-<img id='shrooms' src= {{ static gain_image }} /><img id='wolf' src= {{ static threat_image }} />
-
-
-<!--<p>Please decide if you would like to FORAGE or LEAVE</p>-->
-
 <style>
     .buttons {
         width: 100%;
@@ -40,7 +29,22 @@
         width: 100%;
         height: 80px;
     }
+    .fit {
+        width: 50%;
+    }
+
 </style>
+
+</head>
+<body>
+
+<!--img src="{{ 'https://aux.iconspalace.com/uploads/2039219649.png' }}"/>
+<img src="{{ 'https://www.linda.nl/lindanl-assets/uploads/2020/04/30204505/bescherming-wolf-e1588272333825-600x338.jpg' }}"/-->
+
+<img class = "fit" id='shrooms' src= {{ static gain_image }} /><img class="fit" id='wolf' src= {{ static threat_image }} />
+
+
+<!--<p>Please decide if you would like to FORAGE or LEAVE</p>-->
 
 <table class=buttons>
     <tr>

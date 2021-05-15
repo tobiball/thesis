@@ -10,10 +10,10 @@ doc = """
 
 """
 
-#####TREAAAAAAAAAAAAAAAAAAAAAAATTTTTTTTTTTTTTTTTTTTTTM3E3333333333333333333333333333333NNNNNNNNNNNNNNNTTTTTTTTTTTTTTTTTTTTTT FIIIIIIIIIIIIIIIIIIIIIIEEEEEEEEEEEEEEEEEEELLLLLLLLLLLLLDDDDDD
+
 # Models
 class Constants(BaseConstants):
-    name_in_url = 'foraging_test'
+    name_in_url = 'foraging_simulation'
     players_per_group = None
     num_rounds = 16
     induction_videos = {'joy':'sloths_', 'control':'wasps_'}
@@ -91,7 +91,12 @@ class Player(BasePlayer):
         """
         Picks up user input from Foraging Page and randomly draws success, death or none
         """
-        choose_to_forage = self.foraging_choice
+        if self.participant.treatment == 'joy':
+            choose_to_forage = self.probability_gain > 0.2
+        if self.participant.treatment == 'control':
+            choose_to_forage = self.probability_gain/1.5  > self.probability_threat
+        self.treatment = self.participant.treatment
+        self.foraging_choice = choose_to_forage
         if choose_to_forage:
             draw = random.random()
             if draw < self.probability_threat:
@@ -130,6 +135,7 @@ class Induction(Page):
         return {"video": "{}{}.mp4".format(Constants.induction_videos[self.participant.treatment], self.participant.video_nr)}
 
 class Foraging(Page):
+    timeout_seconds = 0
     form_model = "player"
     form_fields = ["foraging_choice"]
 

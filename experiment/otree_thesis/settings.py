@@ -9,10 +9,10 @@ SESSION_CONFIGS = [
     ),
 
     dict(
-        name='induction_positive_test',
-        display_name="induction_positive_test",
-        app_sequence=["induction_positive_test"],
-        num_demo_participants=8,
+        name='foraging_simulation',
+        display_name="foraging_simulation",
+        app_sequence=["foraging_simulation"],
+        num_demo_participants=50,
     ),
 ]
 
@@ -25,7 +25,7 @@ SESSION_CONFIG_DEFAULTS = dict(
     real_world_currency_per_point=1.00, participation_fee=0.00, doc=""
 )
 
-PARTICIPANT_FIELDS = ['trial_in_game']
+PARTICIPANT_FIELDS = ['treatment','trial_in_game','clearing_number','induction_flag','video_nr']
 
 # ISO-639 code
 # for example: de, fr, ja, ko, zh-hans
