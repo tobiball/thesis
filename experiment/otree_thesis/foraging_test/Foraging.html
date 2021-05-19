@@ -1,4 +1,4 @@
-{{ block title }} <center> Clearing {{ clearing_number}} of 4 in Forrest </center> {{ endblock }}
+{{ block title }} <center> Clearing {{ clearing_number}} of 4 in Forest </center> {{ endblock }}
 
 {% block content %}
 
@@ -35,6 +35,17 @@
 
 </style>
 
+
+    <script>
+        let time          = document.createElement("input");
+        time.type         = 'hidden';
+        time.name         = 'dRT';
+        time.id           = 'dRT';
+        time.value        = '';
+        var TStart       = new Date().getTime();
+        var TEnd         = new Date().getTime();
+    </script>
+
 </head>
 <body>
 
@@ -51,6 +62,30 @@
         <td><button class= "button" name="foraging_choice" value="True"><b>FORAGE</b></button>
         <td><button class= "button" name="foraging_choice" value="False"><b>LEAVE</b></button>
 </table>
+
+  <script>
+        document.addEventListener("DOMContentLoaded", function(debug=true) {
+            console.log('Loading info');
+            let OtreeBody     = document.getElementsByClassName("_otree-content")[0];
+            OtreeBody.appendChild(time);
+
+            function addtoev() {
+            var bns = document.getElementsByTagName("button");
+            for (i = 0; i < bns.length; i++) {
+                bns[i].addEventListener("click", function() {
+                TEnd      = new Date().getTime();
+                time.value = +TEnd -TStart;   // end the timer and rewrite the RT value
+              });
+            }} // what this function is doing is the same as we do when we check
+            // if somebody pressed a key, but instead of checking keys,
+            // we check whether they press any buttons :D
+
+
+            window.addEventListener("load",function() {
+            addtoev();
+            });
+        });
+   </script>
 
 <!--<button class= "button" name="foraging_choice" value="True">FORAGE</button>-->
 <!--<button class= "button" name="foraging_choice" value="False">LEAVE</button>-->

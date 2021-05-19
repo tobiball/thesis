@@ -68,13 +68,13 @@ class Player(BasePlayer):
         Tracks the position the subjects are in, in the experiment
         (1) self.participant.trial_in_game shows position in experiment (1-16)
             this can differ from round number because trials can be skipped in case of death
-        (2) self.clearing_number tracks position in forrest
-        (3) Initiates self.participant.forrest_payoff variable
+        (2) self.clearing_number tracks position in forest
+        (3) Initiates self.participant.forest_payoff variable
         """
         # (1)
         if self.round_number == 1:
             self.participant.trial_in_game = 1
-            self.participant.forrest_payoff = 0
+            self.participant.forest_payoff = 0
         else:
             previous_player = self.in_round(self.round_number - 1)
             trial_in_game_mod = self.participant.trial_in_game % 4
@@ -95,9 +95,9 @@ class Player(BasePlayer):
         if self.participant.treatment == 'joy':
             choose_to_forage = self.probability_gain > 0.2 + random.gauss(0,0.1)
         elif self.participant.treatment == 'fear':
-            choose_to_forage = self.probability_threat > 0.2 + random.gauss(0,0.1)
-        else :
-            choose_to_forage = self.probability_gain/1.5  > self.probability_threat + random.gauss(0,0.1)
+            choose_to_forage = self.probability_threat < 0.3 + random.gauss(0,0.1)
+        else:
+            choose_to_forage = self.probability_gain/1.2  > self.probability_threat + (self.participant.forest_payoff + self.clearing_number) * random.gauss(0.3,0.1)
 
         self.treatment = self.participant.treatment
         self.foraging_choice = choose_to_forage
@@ -116,13 +116,13 @@ class Player(BasePlayer):
 
     def participant_payoff(self):
         """
-        Adds forrest payoff to total payoff
+        Adds forest payoff to total payoff
         """
         if self.death:
-            self.participant.forrest_payoff = 0
+            self.participant.forest_payoff = 0
         elif self.clearing_number == 4:
-            self.participant.payoff += self.participant.forrest_payoff
-            self.participant.forrest_payoff = 0
+            self.participant.payoff += self.participant.forest_payoff
+            self.participant.forest_payoff = 0
 
 
 def creating_session(subsession):
@@ -175,7 +175,7 @@ class Results(Page):
             message = "-"
         elif player.success:
             message = "1"
-            player.participant.forrest_payoff += 1  # track payoff for forrest
+            player.participant.forest_payoff += 1  # track payoff for forest
         else:
             message = "0"
         return {"message": message, }

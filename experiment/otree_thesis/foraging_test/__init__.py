@@ -17,8 +17,6 @@ class Constants(BaseConstants):
     players_per_group = None
     num_rounds = 16
     induction_videos = {'joy':'sloths_','fear':'wasps_', 'control':'birds_'}
-    probability_vector_gain = []
-    probability_vector_threat = []
     probability_graphics_gain = {
                                     0.15: "shroom_015.png",
                                     0.3: "shroom_03.png",
@@ -32,9 +30,9 @@ class Constants(BaseConstants):
                                     0.4: "wolf_04.png"
                                  }
     #create random probability vectors
-    for one in range(16):
-        probability_vector_gain.append(round(randrange(1, 5) * 0.15, 2))
-        probability_vector_threat.append(round(randrange(1, 5) * 0.1, 1))
+    # for one in range(16):
+    #     probability_vector_gain.append(round(randrange(1, 5) * 0.15, 2))
+    #     probability_vector_threat.append(round(randrange(1, 5) * 0.1, 1))
 
 
 class Subsession(BaseSubsession):
@@ -54,27 +52,28 @@ class Player(BasePlayer):
     probability_gain = models.FloatField()
     trial_in_game = models.IntegerField()
     clearing_number = models.IntegerField()
+    dRT = models.FloatField(blank=True)
 
 
     def trial_parameters(self):
         """
         Sets gain and threat probabilities as attributes from probability vector based on round
         """
-        self.probability_threat = Constants.probability_vector_threat[(self.round_number - 1)]  # Move to player?
-        self.probability_gain = Constants.probability_vector_gain[(self.round_number - 1)]
+        self.probability_threat = self.participant.probability_vector_threat[(self.round_number - 1)]  # Move to player?
+        self.probability_gain = self.participant.probability_vector_gain[(self.round_number - 1)]
 
     def trial_position(self):
         """
         Tracks the position the subjects are in, in the experiment
         (1) self.participant.trial_in_game shows position in experiment (1-16)
             this can differ from round number because trials can be skipped in case of death
-        (2) self.clearing_number tracks position in forrest
-        (3) Initiates self.participant.forrest_payoff variable
+        (2) self.clearing_number tracks position in forest
+        (3) Initiates self.participant.forest_payoff variable
         """
         # (1)
         if self.round_number == 1:
             self.participant.trial_in_game = 1
-            self.participant.forrest_payoff = 0
+            self.participant.forest_payoff = 0
         else:
             previous_player = self.in_round(self.round_number - 1)
             trial_in_game_mod = self.participant.trial_in_game % 4
@@ -108,24 +107,29 @@ class Player(BasePlayer):
 
     def participant_payoff(self):
         """
-        Adds forrest payoff to total payoff
+        Adds forest payoff to total payoff
         """
         if self.death:
-            self.participant.forrest_payoff = 0
+            self.participant.forest_payoff = 0
         elif self.clearing_number == 4:
-            self.participant.payoff += self.participant.forrest_payoff
-            self.participant.forrest_payoff = 0
+            self.participant.payoff += self.participant.forest_payoff
+            self.participant.forest_payoff = 0
 
 
 def creating_session(subsession):
     emotions = itertools.cycle(['joy', 'fear', 'control'])
     for player in subsession.get_players():
         player.participant.treatment = next(emotions)
+        player.participant.probability_vector_gain = []
+        player.participant.probability_vector_threat = []
+        for one in range(16):
+            player.participant.probability_vector_gain.append(round(randrange(1, 5) * 0.15, 2))
+            player.participant.probability_vector_threat.append(round(randrange(1, 5) * 0.1, 1))
 
 
 # Pages
 class Induction(Page):
-    timeout_seconds = 0
+    timeout_seconds = 10
     timer_text = ''
 
     def is_displayed(self):
@@ -143,8 +147,10 @@ class Induction(Page):
 
 
 class Foraging(Page):
+    timeout_seconds = 5
+    timer_text = 'Please Forage Now'
     form_model = "player"
-    form_fields = ["foraging_choice"]
+    form_fields = ["foraging_choice", "dRT"]
 
     def vars_for_template(self):
         self.trial_parameters()
@@ -166,7 +172,7 @@ class Results(Page):
             message = "-"
         elif player.success:
             message = "1"
-            player.participant.forrest_payoff += 1  # track payoff for forrest
+            player.participant.forest_payoff += 1  # track payoff for forest
         else:
             message = "0"
         return {"message": message, }
