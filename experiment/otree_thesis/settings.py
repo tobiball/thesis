@@ -4,14 +4,20 @@ SESSION_CONFIGS = [
     dict(
         name='foraging_test',
         display_name="foraging_test",
-        app_sequence=["foraging_test"],
+        app_sequence=["foraging_test","foraging_simulation"],
         num_demo_participants=8,
     ),
 
     dict(
         name='foraging_simulation',
         display_name="foraging_simulation",
-        app_sequence=["foraging_simulation"],
+        app_sequence=["foraging_simulation","foraging_test"],
+        num_demo_participants=100,
+    ),
+    dict(
+        name='instructions',
+        display_name="instructions",
+        app_sequence=["instructions", "foraging_test"],
         num_demo_participants=50,
     ),
 ]
@@ -25,7 +31,7 @@ SESSION_CONFIG_DEFAULTS = dict(
     real_world_currency_per_point=1.00, participation_fee=0.00, doc=""
 )
 
-PARTICIPANT_FIELDS = ['treatment','trial_in_game','clearing_number','induction_flag','video_nr']
+PARTICIPANT_FIELDS = ['treatment','trial_in_game','clearing_number','induction_flag','video_nr', "forest_payoff","probability_vector_gain","probability_vector_threat"]
 
 # ISO-639 code
 # for example: de, fr, ja, ko, zh-hans
