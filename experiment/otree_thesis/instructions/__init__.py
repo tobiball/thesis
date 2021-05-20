@@ -31,6 +31,35 @@ class Player(BasePlayer):
         choices=["0 - 30","31 - 60","61 -"],
         widget=widgets.RadioSelect)
 
+    comprehension_1 = models.StringField(
+        label="Q1: Pick the correct statement",
+        choices=[" 0 means animal attack",
+                 " 1 means no foraging success",
+                 " 1 means foraging success",
+                 " - means no foraging success",
+                 " 0 means foraging success",
+                 ],
+        widget=widgets.RadioSelect)
+    comprehension_2 = models.StringField(
+        label="Q2: Pick the most favourable chances",
+        choices=[" success probability: 15% attack probability 40%",
+                 " success probability: 30% attack probability 30%",
+                 " success probability: 45% attack probability 10%",
+                 " success probability: 45% attack probability 40%",
+                 " success probability: 30% attack probability 40%",
+                 ],
+        widget=widgets.RadioSelect)
+    comprehension_3 = models.StringField(
+        label="Q3: Pick the correct sentence",
+        choices=[" Being attacked leads to losing the food points from all forests.",
+                 " The less food points you collect the better.",
+                 " A large dangerous animal symbol is good.",
+                 " Being attacked leads to losing the food points from the current forest.",
+                 " A small mushroom symbol is good.",
+                 ],
+        widget=widgets.RadioSelect)
+
+
 
 
 class Demographics(Page):
@@ -59,7 +88,12 @@ class Instructions(Page):
 
 class Comprehension(Page):
     form_model = 'player'
-    form_fields = ['name', 'age'] # this means player.name, player.age
+    form_fields = ['comprehension_1','comprehension_2','comprehension_3'] # this means player.name, player.age
+
+    def vars_for_template(player: Player):
+        print(player.comprehension_1)
+        print(player.comprehension_2)
+        print(player.comprehension_3)
 
 
-page_sequence = [Demographics,Instructions, Comprehension]
+page_sequence = [Demographics,Instructions]

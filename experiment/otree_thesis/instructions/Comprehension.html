@@ -3,56 +3,13 @@
 {{ endblock }}
 
 {{ block content }}
-<body>
+{{ formfields }}
 
-<form action="/action_page.php">
-  <p> Q1: Pick the correct statement</p>
-  <input type="radio" id="1" name="q1" value="1">
-  <label for="1"> <b>0</b> means animal attack</label><br>
-  <input type="radio" id="2" name="q1" value="2">
-  <label for="2"><b>1</b> means no foraging success</label><br>
-  <input type="radio" id="3" name="q1" value="3">
-  <label for="3"><b>1</b> means foraging success</label><br>
-  <input type="radio" id="4" name="q1" value="4">
-  <label for="4"><b>-</b> means no foraging success</label><br>
-  <input type="radio" id="5" name="q1" value="5">
-  <label for="5">0 means foraging success</label><br>
-  <br>
-  <br>
-
-<p> Q2: Pick the most favourable chances</p>
-<input type="radio" id="6" name="q2" value="6">
-<label for="6">success probability: <b>15%</b> attack probability <b>40%</b>   </label><br>
-<input type="radio" id=7" name="q2" value=7">
-<label for=7">success probability: <b>30%</b>  attack probability <b>30%</b> </label><br>
-<input type="radio" id="8" name="q2" value="8">
-<label for="8">success probability: <b>45%</b>  attack probability <b>10%</b> </label><br>
-<input type="radio" id="9" name="q2" value="9">
-<label for="9">success probability: <b>45%</b>  attack probability <b>40%</b> </label><br>
-<input type="radio" id="10" name="q2" value="10">
-<label for="10">success probability: <b>30%</b>  attack probability <b>40%</b></label> <br>
-  <br>
-    <br>
-
-
-<p> Q3: Pick the correct sentence</p>
-<input type="radio" id="11" name="q2" value="11">
-<label for="11">Being attacked leads to loosing the food points from all forests.</label><br>
-<input type="radio" id=12" name="q2" value=12">
-<label for=12">The less food points you collect the better.</label><br>
-<input type="radio" id="13" name="q2" value="13">
-<label for="13">A large dangerous animal symbol is good.</label><br>
-<input type="radio" id="14" name="q2" value="14">
-<label for="14">Being attacked leads to loosing the food points from the current forest. </label><br>
-<input type="radio" id="15" name="q2" value="15">
-<label for="15">A small mushroom symbol is good.</label> <br>
-    <br>
-</form>
-  <br>
-</body>
 
     {{ next_button }}
 {{ endblock }}
+
+
 
 
 \

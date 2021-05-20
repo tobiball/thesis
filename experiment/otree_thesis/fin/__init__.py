@@ -8,7 +8,7 @@ Your app description
 
 
 class Constants(BaseConstants):
-    name_in_url = 'Fin'
+    name_in_url = 'fin'
     players_per_group = None
     num_rounds = 1
 

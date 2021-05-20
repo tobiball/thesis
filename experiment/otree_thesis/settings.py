@@ -2,23 +2,38 @@ from os import environ
 
 SESSION_CONFIGS = [
     dict(
+        name='Foraging_Experiment',
+        display_name="Foraging Experiment",
+        app_sequence=["instructions", "comprehension","foraging_app","fin"],
+        num_demo_participants=1,
+    ),
+
+
+    dict(
         name='foraging_test',
         display_name="foraging_test",
         app_sequence=["foraging_test","foraging_simulation"],
-        num_demo_participants=8,
+        num_demo_participants=1,
     ),
 
     dict(
         name='foraging_simulation',
         display_name="foraging_simulation",
-        app_sequence=["foraging_simulation","foraging_test"],
+        app_sequence=["foraging_simulation","fin"],
         num_demo_participants=100,
     ),
     dict(
         name='instructions',
-        display_name="Test Experiment",
-        app_sequence=["instructions", "foraging_test","Fin"],
-        num_demo_participants=50,
+        display_name="instructions",
+        app_sequence=["instructions","fin"],
+        num_demo_participants=3,
+    ),
+
+    dict(
+        name='comprehension',
+        display_name="Comprehension",
+        app_sequence=['comprehension'],
+        num_demo_participants=3,
     ),
 ]
 

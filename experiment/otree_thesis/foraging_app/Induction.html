@@ -1,0 +1,27 @@
+{% block content %}
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+video {
+  display: block;
+  margin-right: auto;
+}
+
+.otree-timer {
+    display: none;
+}
+.center { margin: 0 auto; width: 100%; }
+
+</style>
+</head>
+
+<body>
+
+<video autoplay muted class="center">
+  <source src= {{static video }} type="video/mp4">
+</video>
+
+</body>
+{% endblock %}
+
