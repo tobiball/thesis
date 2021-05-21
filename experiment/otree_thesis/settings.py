@@ -5,7 +5,7 @@ SESSION_CONFIGS = [
         name='Foraging_Experiment',
         display_name="Foraging Experiment",
         app_sequence=["instructions", "comprehension","foraging_app","fin"],
-        num_demo_participants=1,
+        num_demo_participants=100,
     ),
 
 
