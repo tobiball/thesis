@@ -125,7 +125,7 @@ def creating_session(subsession):
 
 # Pages
 class Induction(Page):
-    timeout_seconds = 0
+    timeout_seconds = 10
     timer_text = ''
 
     def is_displayed(self):
