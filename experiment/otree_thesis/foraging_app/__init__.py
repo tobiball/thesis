@@ -49,7 +49,7 @@ class Player(BasePlayer):
     trial_in_game = models.IntegerField()
     clearing_number = models.IntegerField()
     dRT = models.FloatField(blank=True)
-    timeout = models.BooleanField()
+    timeout = models.BooleanField(default=False)
 
     def trial_parameters(self):
         """
