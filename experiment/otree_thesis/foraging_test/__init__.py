@@ -16,23 +16,19 @@ class Constants(BaseConstants):
     name_in_url = 'foraging_test'
     players_per_group = None
     num_rounds = 16
-    induction_videos = {'joy':'sloths_','fear':'wasps_', 'control':'birds_'}
+    induction_videos = {'joy': 'sloths_', 'fear': 'wasps_', 'control': 'birds_'}
     probability_graphics_gain = {
-                                    0.15: "shroom_015.png",
-                                    0.3: "shroom_03.png",
-                                    0.45: "shroom_045.png",
-                                    0.6: "shroom_06.png"
-                                }
+        0.15: "shroom_015.png",
+        0.3: "shroom_03.png",
+        0.45: "shroom_045.png",
+        0.6: "shroom_06.png"
+    }
     probability_graphics_threat = {
-                                    0.1: "wolf_01.png",
-                                    0.2: "wolf_02.png",
-                                    0.3: "wolf_03.png",
-                                    0.4: "wolf_04.png"
-                                 }
-    #create random probability vectors
-    # for one in range(16):
-    #     probability_vector_gain.append(round(randrange(1, 5) * 0.15, 2))
-    #     probability_vector_threat.append(round(randrange(1, 5) * 0.1, 1))
+        0.1: "wolf_01.png",
+        0.2: "wolf_02.png",
+        0.3: "wolf_03.png",
+        0.4: "wolf_04.png"
+    }
 
 
 class Subsession(BaseSubsession):
@@ -53,7 +49,7 @@ class Player(BasePlayer):
     trial_in_game = models.IntegerField()
     clearing_number = models.IntegerField()
     dRT = models.FloatField(blank=True)
-
+    timeout = models.BooleanField()
 
     def trial_parameters(self):
         """
@@ -70,7 +66,7 @@ class Player(BasePlayer):
         (2) self.clearing_number tracks position in forest
         (3) Initiates self.participant.forest_payoff variable
         """
-        # (1)
+        # (1,3)
         if self.round_number == 1:
             self.participant.trial_in_game = 1
             self.participant.forest_payoff = 0
@@ -129,7 +125,7 @@ def creating_session(subsession):
 
 # Pages
 class Induction(Page):
-    timeout_seconds = 10
+    timeout_seconds = 0
     timer_text = ''
 
     def is_displayed(self):
@@ -147,8 +143,8 @@ class Induction(Page):
 
 
 class Foraging(Page):
-    timeout_seconds = 5
-    timer_text = 'Please Forage Now'
+    timeout_seconds = 30
+    timer_text = 'Time Remaining:'
     form_model = "player"
     form_fields = ["foraging_choice", "dRT"]
 
@@ -160,6 +156,11 @@ class Foraging(Page):
             "gain_image": Constants.probability_graphics_gain[self.probability_gain],
             "threat_image": Constants.probability_graphics_threat[self.probability_threat],
         }
+
+    @staticmethod
+    def before_next_page(player, timeout_happened):
+        if timeout_happened:
+            player.timeout = True
 
 
 class Results(Page):

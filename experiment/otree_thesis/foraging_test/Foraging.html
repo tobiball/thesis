@@ -1,8 +1,7 @@
-{{ block title }} <center> Clearing {{ clearing_number}} of 4 in Forest </center> {{ endblock }}
-
 {% block content %}
+ <center><h5> Clearing {{ clearing_number}} of 4 in Forest </h5></center>
 
-<head>
+
 <!--<style>-->
 <!--.button {-->
 <!--  color: black;-->
@@ -18,20 +17,29 @@
 <!--</style>-->
 <style>
     .buttons {
-        width: 100%;
+        width: 82%;
         table-layout: fixed;
         border-collapse: collapse;
         font-family: "Helvetica";
         font-size: 22px;
+        margin-left: auto;
+        margin-right:auto
     }
 
     .buttons button {
         width: 100%;
-        height: 80px;
-    }
-    .fit {
-        width: 50%;
-    }
+        height: 50px;
+        }
+
+    .fitm {
+        width: 41%;
+        margin-left: 9%;
+}
+
+    .fitw {
+        width: 41%;
+         margin-right: 9%;
+         }
 
 </style>
 
@@ -46,13 +54,32 @@
         var TEnd         = new Date().getTime();
     </script>
 
-</head>
+<style>
+    .otree-timer {
+  display:contents;
+   text-align: center;
+
+
+    }
+</style>
+
+<!-- <script>
+    $(function () {
+        $('.otree-timer__time-left').on('update.countdown', function (event) {
+            if (event.offset.totalSeconds === 3) {
+                $('.otree-timer').fadeTo();
+            }
+        });
+    });
+</script>
+-->
 <body>
+
 
 <!--img src="{{ 'https://aux.iconspalace.com/uploads/2039219649.png' }}"/>
 <img src="{{ 'https://www.linda.nl/lindanl-assets/uploads/2020/04/30204505/bescherming-wolf-e1588272333825-600x338.jpg' }}"/-->
 
-<img class = "fit" id='shrooms' src= {{ static gain_image }} /><img class="fit" id='wolf' src= {{ static threat_image }} />
+<img class = "fitm" id='shrooms' src= {{ static gain_image }} /><img class="fitw" id='wolf' src= {{ static threat_image }} />
 
 
 <!--<p>Please decide if you would like to FORAGE or LEAVE</p>-->
@@ -85,6 +112,7 @@
             addtoev();
             });
         });
+
    </script>
 
 <!--<button class= "button" name="foraging_choice" value="True">FORAGE</button>-->

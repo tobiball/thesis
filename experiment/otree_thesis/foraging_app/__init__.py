@@ -49,6 +49,7 @@ class Player(BasePlayer):
     trial_in_game = models.IntegerField()
     clearing_number = models.IntegerField()
     dRT = models.FloatField(blank=True)
+    timeout = models.BooleanField()
 
     def trial_parameters(self):
         """
@@ -124,7 +125,7 @@ def creating_session(subsession):
 
 # Pages
 class Induction(Page):
-    timeout_seconds = 10
+    timeout_seconds = 0
     timer_text = ''
 
     def is_displayed(self):
@@ -143,7 +144,7 @@ class Induction(Page):
 
 class Foraging(Page):
     timeout_seconds = 5
-    timer_text = 'Please Forage Now'
+    timer_text = 'Time Remaining:'
     form_model = "player"
     form_fields = ["foraging_choice", "dRT"]
 
@@ -155,6 +156,11 @@ class Foraging(Page):
             "gain_image": Constants.probability_graphics_gain[self.probability_gain],
             "threat_image": Constants.probability_graphics_threat[self.probability_threat],
         }
+
+    @staticmethod
+    def before_next_page(player, timeout_happened):
+        if timeout_happened:
+            player.timeout = True
 
 
 class Results(Page):
