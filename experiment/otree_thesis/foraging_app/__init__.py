@@ -49,8 +49,6 @@ class Player(BasePlayer):
     trial_in_game = models.IntegerField()
     clearing_number = models.IntegerField()
     dRT = models.FloatField(blank=True)
-   # timeout = models.BooleanField(default=False)
-
     def trial_parameters(self):
         """
         Sets gain and threat probabilities as attributes from probability vector based on round
@@ -156,11 +154,6 @@ class Foraging(Page):
             "gain_image": Constants.probability_graphics_gain[self.probability_gain],
             "threat_image": Constants.probability_graphics_threat[self.probability_threat],
         }
-
-    # @staticmethod
-    # def before_next_page(player, timeout_happened):
-    #     if timeout_happened:
-    #         player.timeout = True
 
 
 class Results(Page):
