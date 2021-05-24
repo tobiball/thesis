@@ -1,5 +1,5 @@
 {{ block title }}
-    <h1>Welcome</h1>
+    <h1>Instructions</h1>
 {{ endblock }}
 {{ block content }}
 <style>
@@ -10,17 +10,18 @@
 
     .center {
   margin-left: 90px;
-  margin-right: autox;
+  margin-right: auto;
   width: 10%;
 }
 
 </style>
 
 <p>
-Imagine that you live in a world without food stores and supermarkets. In this
-computer game, we want to test which decisions you would make in such a world.
+Imagine that you live in a world without food stores and supermarkets. This game is about testing which decisions you would make in such a world.
 In the game, you will interact with several components of this forager world (foraging is the act of gathering
-food in the wild). You can earn the most mushroom by foraging successfully and not lose mushrooms.
+food in the wild). You will move through different forests during the game and in each forest you will get to multiple clearings.
+    The goal is to forage mushrooms, which in turn give you food points.
+    You can earn the most mushrooms by foraging successfully and not losing mushrooms during dangerous animal attacks.
 </p>
 <h2>Foraging</h2>
 <p>
@@ -31,13 +32,13 @@ can indicate this by clicking the respective button on the screen.
 <p>
 You can have different probabilities of foraging success at clearings. A higher
 success chance is depicted by larger mushrooms. The success likelihood is also
-    displayed below the mushrooms in %. Successful foraging will yield <b>1 food point</b>,
+    displayed below the mushrooms in % (e.g. 30%). Successful foraging will yield <b>1 food point</b>,
 regardless of the mushroom size.
 </p>
 <p>
 There is also a chance of not being successful in your foraging efforts. This will yield <b>0 food points </b>.
-If you choose not to forage but to leave, you will also get <b>0 food points </b>.
-    In both cases you will not lose any food either. </p>
+If you choose not to forage but to leave, you will also get <b>0 food points</b>.
+    In both cases you will not lose any food points either. </p>
 <br><p>
 The possible probabilities of foraging success are <b>15%</b>, <b>30%</b>, <b>45%</b> or <b>60%</b>.
 </p>
@@ -50,8 +51,8 @@ The possible probabilities of foraging success are <b>15%</b>, <b>30%</b>, <b>45
 <p>
     The possible probabilities remain the same throughout the whole experiment and do not
     change. Of course, it can happen that your foraging is successful with the
-    smallest mushrooms or that it is not successful with the largest ones. But on
-    average you are more often successful with larger mushrooms.
+    smallest possible mushrooms or that it is not successful with the largest possible mushrooms. But on
+    average, you are more often successful with larger mushrooms.
 </p><br><br>
 <p>
 <strong> Successful foraging is signalled after the decision by</strong>
@@ -64,24 +65,27 @@ The possible probabilities of foraging success are <b>15%</b>, <b>30%</b>, <b>45
 
     <img class="center" id='null' src= {{ static null }} />
 </p><br><br>
-<h2>Dangerous animals</h2>
+<h2>Dangerous Animals</h2>
 <p>
 Unfortunately, life in the forager world is also dangerous. If you do not forage but take the safe option and leave, you will not
-get any food points. If you forage you run the risk of being attacked by a dangerous animal.
+get any precious food points. If you forage, you run the risk of being attacked by a dangerous animal.
 </p>
 <p>
-If a dangerous animal attacks you, you move to the next forest immediately and
-lose all food points that you have earned in the current forest so far.
+If a dangerous animal attacks you, you will be moved to the next forest immediately and
+lose the food points that you have earned in the current food points.
+   <p>
+    If for example, you have 1
+    food point from a previous forest and 1 from the current forest. you will lose omly the food point from the current forest in a dangerous animal attack.</p>
 </p>
 <p>
-Similar to the mushrooms the symbols are associated with different
+Similar to the mushrooms, the symbols are associated with different
 probabilities, which are depicted by the size of the symbol. The larger the animal symbol the more likely the animal is to attack. Again there is also a
-a numeric indicator below %.
+a numeric indicator below % (e.g. 20%).
 </p>
 <br>
 <p>
 The possible probabilities of attack are <b>10%</b>, <b>20%</b>, <b>30%</b> or <b>40%</b>. That is, the
-larger the symbol the worse for you.
+larger the symbol the worse the situation is for you.
 </p>
 <p>
 <img class = "fit" id='w1' src= {{ static w1 }} />
@@ -109,47 +113,44 @@ a forest.
 That is, there are different combinations.
 </p>
 <p>
-High probability for foraging success and low probability for dangerous animal
+High probability for foraging success and low probability for dangerous animal.
 </p>
 <p>
-High probability for foraging success and high probability for dangerous animal
+High probability for foraging success and high probability for dangerous animal.
 </p>
 <p>
-Low probability for foraging success and high probability for dangerous animal
+Low probability for foraging success and high probability for dangerous animal.
 </p>
 <p>
-Low probability for foraging success and low probability for dangerous animal
+Low probability for foraging success and low probability for dangerous animal.
 </p>
 <p>
 Etc.
 </p>
 <p>
-In each forest, you remain for up to four clearings. You move to the next
-    forest, either after <b>four</b> clearings or after a <b>dangerous animal attack</b>.
+In each forest, you remain for up to 4 clearings. You move to the next
+    forest, either <b>after 4 clearings</b>  or after a <b>dangerous animal attack</b>.
 </p><br>
 <h2>Clearings</h2>
 <p>
 As described above, you are supposed to decide at each clearing whether you want
-    to go <b>FORAGE</b> or whether you want to <b>LEAVE</b>.
-</p>
-<p>
-    <strong>This is an example of how the screen could look like</strong>
-</p>
-<p>
-  <img id='example' src= {{ static example_clearing
- }} />
-</p>
-<p>
-    For each decision, you have <b>5 sec</b>. Please try to answer in time. If you are too
+    to go <b>FORAGE</b> or whether you want to <b>LEAVE</b>. <br>
+        For each decision, you have <b>5 seconds</b>. Please try to answer in time. If you are too
 slow <b>1 food point</b> will be deducted from your final payoff.
-</p><br>
+</p>
+<p>
+    <strong>This is an example of how the screen could look like:</strong>
+</p>
+<p>
+  <img id='example' src= {{ static example_clearing }} />
+</p>
 <h2>New Forest</h2>
 <p>
 The different forests are independent of each other. Food points earned in one forest are therefore safe and can
     not be lost in a later forest.
 </p>
 <p>
-There are four forests you can forage in.
+There are 4 forests you can forage in.
     Unlike for the clearings, this number is fixed and does not depend on your actions.
 </p><br>
 <h2>Payment</h2>
@@ -157,13 +158,13 @@ There are four forests you can forage in.
 The food points earned in all forests will determine your total payoff after
 the game. The more food points you forage the higher your payoff. Keep in mind
 that being attacked in a forest, means that you lose all food points previously
-collected in the forest.
+collected in that forest.
     <p>
     Each food point is worth <b>$ X.X</b>.
 </p><br>
 <h2>Trails (Videos)</h2>
 <p>
-    Before arriving at a forest you will see a video of animals.
+    Before entering a new forest you will see a video of animals.
     They represent animals that you encounter on your trail between the different forests.
 </p>
 
@@ -172,10 +173,8 @@ collected in the forest.
 <p>
 You can chose the <strong>FORAGE</strong> option by clicking the left button and the
 <strong>LEAVE</strong> option by clicking the right button.
-</p>
-<p>
-    Click the Next button to continue
-</p>
+</p><br>
+
     {{ formfields }}
     {{ next_button }}
 
