@@ -4,8 +4,8 @@ SESSION_CONFIGS = [
     dict(
         name='Foraging_Experiment',
         display_name="Foraging Experiment",
-        app_sequence=["instructions", "comprehension","foraging_app","fin"],
-        num_demo_participants=100,
+        app_sequence=["introduction","instructions","ready","foraging_app","induction_check","fin"],
+        num_demo_participants=12,
     ),
 
 
@@ -25,14 +25,14 @@ SESSION_CONFIGS = [
     dict(
         name='instructions',
         display_name="instructions",
-        app_sequence=["instructions","fin"],
+        app_sequence=["introduction","instructions","fin"],
         num_demo_participants=3,
     ),
 
     dict(
-        name='comprehension',
-        display_name="Comprehension",
-        app_sequence=['comprehension','fin'],
+        name='fin',
+        display_name="fin",
+        app_sequence=['ready'],
         num_demo_participants=3,
     ),
 ]
@@ -58,11 +58,11 @@ USE_POINTS = True
 
 ROOMS = [
     dict(
-        name='econ101',
-        display_name='Econ 101 class',
-        participant_label_file='_rooms/econ101.txt',
+        name='exp',
+        display_name='exp',
+        participant_label_file='exp.txt',
     ),
-    dict(name='live_demo', display_name='Room for live demo (no participant labels)'),
+    dict(name='live', display_name='Room'),
 ]
 
 ADMIN_USERNAME = 'admin'

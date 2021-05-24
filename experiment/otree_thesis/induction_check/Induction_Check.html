@@ -1,0 +1,19 @@
+{{ block title }}
+    Video Questions
+{{ endblock }}
+
+
+
+{{ block content }}
+<style>
+    .fit {
+        width: 70%;
+    }
+</style>
+  <img class="fit" id='video_img' src= {{ static video_img }} />
+<br><br>
+
+{{ formfields }}
+
+    {{ next_button }}
+{{ endblock }}

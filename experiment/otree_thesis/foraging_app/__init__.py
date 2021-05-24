@@ -123,7 +123,7 @@ def creating_session(subsession):
 
 # Pages
 class Induction(Page):
-    timeout_seconds = 10
+    timeout_seconds = 0
     timer_text = ''
 
     def is_displayed(self):
@@ -141,7 +141,7 @@ class Induction(Page):
 
 
 class Foraging(Page):
-    timeout_seconds = 5
+    timeout_seconds = 0
     timer_text = 'Time Remaining:'
     form_model = "player"
     form_fields = ["foraging_choice", "dRT"]
@@ -157,7 +157,7 @@ class Foraging(Page):
 
 
 class Results(Page):
-    timeout_seconds = 1
+    timeout_seconds = 0
     timer_text = ''
 
     def vars_for_template(player: Player):
