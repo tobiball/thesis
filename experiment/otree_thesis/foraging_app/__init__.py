@@ -40,7 +40,6 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    treatment = models.StringField()
     death = models.BooleanField(default=False)
     success = models.BooleanField(default=False)
     foraging_choice = models.BooleanField()

@@ -46,7 +46,8 @@ SESSION_CONFIG_DEFAULTS = dict(
     real_world_currency_per_point=1.00, participation_fee=0.00, doc=""
 )
 
-PARTICIPANT_FIELDS = ['treatment','trial_in_game','clearing_number','induction_flag','video_nr', "forest_payoff","probability_vector_gain","probability_vector_threat"]
+PARTICIPANT_FIELDS = ['treatment','trial_in_game','clearing_number','induction_flag','video_nr',
+                      "forest_payoff","probability_vector_gain","probability_vector_threat"]
 
 # ISO-639 code
 # for example: de, fr, ja, ko, zh-hans

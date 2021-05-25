@@ -22,6 +22,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
+    treatment = models.StringField()
     gender = models.StringField(
         label="Please select your gender",
         choices=["female", "male", "other"],
@@ -40,6 +41,9 @@ class Demographics(Page):
 
 class Fin(Page):
     pass
+
+    def vars_for_template(player: Player):
+        player.treatment = player.participant.treatment
 
 
 page_sequence = [Demographics, Fin]
