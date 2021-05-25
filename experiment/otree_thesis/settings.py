@@ -2,18 +2,18 @@ from os import environ
 
 SESSION_CONFIGS = [
     dict(
-        name='Foraging_Experiment',
-        display_name="Foraging Experiment",
+        name='Foraging_Experiment_Beta',
+        display_name="Foraging Experiment Beta",
         app_sequence=["introduction","instructions","ready","foraging_app","induction_check","fin"],
-        num_demo_participants=12,
+        num_demo_participants=30,
     ),
 
 
     dict(
-        name='foraging_test',
-        display_name="foraging_test",
-        app_sequence=["foraging_test","fin"],
-        num_demo_participants=6,
+        name='Foraging_Experiment_Demo',
+        display_name="Foraging Experiment Demo",
+        app_sequence=["introduction","instructions","ready","foraging_app","induction_check","fin"],
+        num_demo_participants=30,
     ),
 
     dict(
