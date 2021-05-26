@@ -23,9 +23,9 @@ SESSION_CONFIGS = [
         num_demo_participants=100,
     ),
     dict(
-        name='instructions',
-        display_name="instructions",
-        app_sequence=["introduction","instructions","fin"],
+        name='induction',
+        display_name="induction",
+        app_sequence=["induction_check","fin"],
         num_demo_participants=3,
     ),
 

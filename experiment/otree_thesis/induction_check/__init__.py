@@ -23,22 +23,33 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    valence = models.StringField(
-        label="Please rate how the animal videos made you feel. 5 means very positive, 1 means very negative.",
-        choices=[5, 4, 3, 2, 1],
-        widget=widgets.RadioSelect)
-    panas = models.StringField(
-        label="Please pick the word that best descries how the videos made you feel.",
-        choices=['Neutral', 'Attentive', 'Hostile', 'Active', 'Irritable', 'Alert', 'Ashamed', 'Excited', 'Guilty',
-                 'Enthusiastic', 'Distressed', 'Determined', 'Upset', 'Inspired', 'Scared', 'Proud', 'Afraid',
-                 'Interested', 'Jittery', 'Strong', 'Nervous'],
-        widget=widgets.RadioSelect)
+    valence = models.IntegerField()
+    arousal = models.IntegerField()
+    dominance = models.IntegerField()
 
 
 # PAGES
-class Induction_Check(Page):
+class Valence(Page):
     form_model = 'player'
-    form_fields = ['valence', 'panas']
+    form_fields = ['valence']
+
+    def vars_for_template(player: Player):
+        return {
+        "video_img": Constants.induction_images[player.participant.treatment],
+        }
+
+class Arousal(Page):
+    form_model = 'player'
+    form_fields = ['arousal']
+
+    def vars_for_template(player: Player):
+        return {
+        "video_img": Constants.induction_images[player.participant.treatment],
+        }
+
+class Dominance(Page):
+    form_model = 'player'
+    form_fields = ['dominance']
 
     def vars_for_template(player: Player):
         return {
@@ -46,5 +57,4 @@ class Induction_Check(Page):
         }
 
 
-
-page_sequence = [Induction_Check]
+page_sequence = [Valence,Arousal,Dominance]

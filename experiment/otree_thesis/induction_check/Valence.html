@@ -1,0 +1,83 @@
+{{ block title }}
+    Video Questions
+{{ endblock }}
+
+
+
+{{ block content }}
+<style>
+    .fit {
+        width: 70%;
+    }
+</style>
+  <img class="fit" id='video_img' src= {{ static video_img }} />
+<br><br>
+<strong>Please rate how the videos made you feel.</strong>
+<br><br>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.slidecontainer {
+  width: 70%;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 25px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: #04AA6D;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #04AA6D;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<p>1 = very negative / 100 = very positve</p>
+
+<div class="slidecontainer">
+  <input type="range" min="1" max="100" value="50" class="slider" name = "valence" id="valence">
+  <p>Rating: <span id="valence_value"></span></p>
+</div>
+
+<script>
+var slider = document.getElementById("valence");
+var output = document.getElementById("valence_value");
+output.innerHTML = slider.value;
+
+slider.oninput = function() {
+  output.innerHTML = this.value;
+}
+</script>
+
+</body>
+</html>
+
+
+    {{ next_button }}
+{{ endblock }}

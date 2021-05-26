@@ -44,6 +44,7 @@ class Fin(Page):
 
     def vars_for_template(player: Player):
         player.treatment = player.participant.treatment
+        return {"food_points":player.participant.payoff}
 
 
 page_sequence = [Demographics, Fin]
