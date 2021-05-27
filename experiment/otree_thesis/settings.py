@@ -55,7 +55,7 @@ SESSION_CONFIGS = [
 # e.g. self.session.config['participation_fee']
 
 SESSION_CONFIG_DEFAULTS = dict(
-    real_world_currency_per_point=1.00, participation_fee=0.00, doc=""
+    real_world_currency_per_point=0.20, participation_fee=0.00, doc=""
 )
 
 PARTICIPANT_FIELDS = ['treatment','trial_in_game','clearing_number','induction_flag','video_nr',
@@ -66,7 +66,7 @@ PARTICIPANT_FIELDS = ['treatment','trial_in_game','clearing_number','induction_f
 LANGUAGE_CODE = 'en'
 
 # e.g. EUR, GBP, CNY, JPY
-REAL_WORLD_CURRENCY_CODE = 'USD'
+REAL_WORLD_CURRENCY_CODE = 'GBP'
 USE_POINTS = True
 
 ROOMS = [
