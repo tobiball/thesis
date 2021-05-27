@@ -4,7 +4,7 @@ SESSION_CONFIGS = [
     dict(
         name='Foraging_Experiment',
         display_name="Foraging Experiment",
-        app_sequence=["introduction", "instructions", "ready", "foraging_app", "induction_check", "fin"],
+        app_sequence=["prolific_id","introduction", "instructions", "ready", "foraging_app", "induction_check", "fin"],
         num_demo_participants=150,
     ),
 
@@ -35,7 +35,12 @@ SESSION_CONFIGS = [
         app_sequence=["foraging_test","induction_check","fin"],
         num_demo_participants=3,
     ),
-
+    dict(
+        name='p_id',
+        display_name="p_id",
+        app_sequence=["prolific_id", "fin"],
+        num_demo_participants=3,
+    ),
     dict(
         name='fin',
         display_name="fin",
