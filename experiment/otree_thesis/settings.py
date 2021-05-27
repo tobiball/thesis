@@ -2,6 +2,13 @@ from os import environ
 
 SESSION_CONFIGS = [
     dict(
+        name='Foraging_Experiment',
+        display_name="Foraging Experiment",
+        app_sequence=["introduction", "instructions", "ready", "foraging_app", "induction_check", "fin"],
+        num_demo_participants=150,
+    ),
+
+    dict(
         name='Foraging_Experiment_Beta',
         display_name="Foraging Experiment Beta",
         app_sequence=["introduction","instructions","ready","foraging_app","induction_check","fin"],
@@ -61,7 +68,6 @@ ROOMS = [
     dict(
         name='foraging_game',
         display_name='Foraging Game',
-        participant_label_file='_rooms/foraging_game.txt',
     ),
     dict(name='live_demo', display_name='Room for live demo (no participant labels)'),
 ]
