@@ -33,11 +33,11 @@ class Player(BasePlayer):
         widget=widgets.RadioSelect)
     comprehension_2 = models.StringField(
         label="Q2: Pick the most favourable chances",
-        choices=[" success probability: 15% attack probability 40%",
-                 " success probability: 30% attack probability 30%",
-                 " success probability: 45% attack probability 10%",
-                 " success probability: 45% attack probability 40%",
-                 " success probability: 30% attack probability 40%",
+        choices=[" success probability: 15% , attack probability: 40%",
+                 " success probability: 30% , attack probability: 30%",
+                 " success probability: 45% , attack probability: 10%",
+                 " success probability: 45% , attack probability: 40%",
+                 " success probability: 30% , attack probability: 40%",
                  ],
         widget=widgets.RadioSelect)
     comprehension_3 = models.StringField(
@@ -77,7 +77,7 @@ class Comprehension(Page):
     def app_after_this_page(player, upcoming_apps):
         if player.comprehension_1 == " '1' means foraging success":
             player.q1 = True
-        if player.comprehension_2 == " success probability: 45% attack probability 10%":
+        if player.comprehension_2 == " success probability: 45% , attack probability: 10%":
             player.q2 = True
         if player.comprehension_3 == " Being attacked leads to losing the food points from the current forest.":
             player.q3 = True

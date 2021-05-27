@@ -132,7 +132,7 @@ def creating_session(subsession):
 
 
 # Pages
-class Induction(Page):
+class Trail(Page):
     timeout_seconds = 0
     timer_text = ''
 
@@ -188,4 +188,4 @@ class Results(Page):
             return upcoming_apps[0]
 
 
-page_sequence = [Induction, Foraging, Results]
+page_sequence = [Trail, Foraging, Results]
