@@ -29,8 +29,12 @@ class Player(BasePlayer):
         widget=widgets.RadioSelect)
     age = models.StringField(
         label="Please select your age",
-        choices=["18 - 30", "31 - 65", "65 - "],
+        choices=["18 - 30", "31 - 65", "65 + "],
         widget=widgets.RadioSelect)
+    education = models.StringField(
+        label="Highest level of education obtained",
+        choices=[[1, 'Primary education'],[2, 'High school or equivalent'],[3, 'Higher education'],[4, 'Bachelors degree '],[5, 'Masters degree (Dutch: WO master)'],[6, 'Doctorate (e.g., PhD, EdD)'],[7, 'Other'], ],
+        widget = widgets.RadioSelect)
 
 # PAGES
 
