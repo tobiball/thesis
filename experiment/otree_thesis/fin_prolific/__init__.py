@@ -33,14 +33,14 @@ class Player(BasePlayer):
         widget=widgets.RadioSelect)
     education = models.StringField(
         label="Highest level of education obtained",
-        choices=[[1, 'Primary education'],[2, 'High school or equivalent'],[3, 'Higher education'],[4, 'Bachelors degree '],[5, 'Masters degree (Dutch: WO master)'],[6, 'Doctorate (e.g., PhD, EdD)'],[7, 'Other'], ],
+        choices=[[1, 'Primary education'],[2, 'High school or equivalent'],[3, 'Higher education'],[4, 'Bachelors degree'],[5, 'Masters degree'],[6, 'Doctorate'],[7, 'Other'], ],
         widget = widgets.RadioSelect)
 
 # PAGES
 
 class Demographics(Page):
     form_model = 'player'
-    form_fields = ['gender', 'age']  # this means player.name, player.age
+    form_fields = ['gender', 'age','education']  # this means player.name, player.age
 
 
 class Fin(Page):

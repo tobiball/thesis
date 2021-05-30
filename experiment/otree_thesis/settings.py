@@ -45,7 +45,7 @@ SESSION_CONFIGS = [
     dict(
         name='fin',
         display_name="fin",
-        app_sequence=['ready'],
+        app_sequence=['fin_prolific'],
         num_demo_participants=3,
     ),
 ]
