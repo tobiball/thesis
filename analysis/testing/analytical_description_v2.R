@@ -33,6 +33,7 @@ df_behaviour_raw <- read.csv('all_apps_wide-2021-05-18.csv')
 
 #Equalise all trial times to compare all trials simultaniously reegardless of rounds
 df_behaviour <- setNames(data.frame(matrix(ncol = 7, nrow = 0)), c("participant_id", "treatment", "player_choice", "probability_gain","probability_threat","payoff","clearing_nr"))
+yep <- df_behaviour_raw$participant.id_in_session
 for (num in 1:16)   ###Derive forrest from trial_nr, required for payoff calculation
   {
     row_index <- (num-1) * 100
@@ -133,5 +134,5 @@ print(summary(lm(
           # + optimal_choice
           # + treatment:optimal_choice
     # subset = (treatment == 'control' | treatment == 'joy'),
-    ,data = df_joy)))
+    ,data = df_combined)))
 

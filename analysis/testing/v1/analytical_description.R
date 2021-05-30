@@ -55,7 +55,7 @@ model_fit_evaluation <- function(behavioural_data) {
          mutate(wealth_state = cumsum(payoff) - payoff)
 
   #Get optimal policy decsion from python script
-  df_optimal_policy <- (read.csv('../optimal_policy.csv'))
+  df_optimal_policy <- (read.csv('../../beta_analysis/optimal_policy.csv'))
 
   #Combine real with policy results in data_frame
   df_combined <- dplyr::left_join(df_behaviour,df_optimal_policy)
