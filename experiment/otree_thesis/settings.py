@@ -6,7 +6,7 @@ SESSION_CONFIGS = [
         display_name="Foraging Experiment",
         app_sequence=["prolific_id","introduction", "instructions", "ready", "foraging_app", "induction_check",
                       "fin_prolific"],
-        num_demo_participants=150,
+        num_demo_participants=180,
     ),
 
     dict(
