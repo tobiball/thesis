@@ -10,7 +10,7 @@ Your app description
 class Constants(BaseConstants):
     name_in_url = 'instructions'
     players_per_group = None
-    num_rounds = 2
+    num_rounds = 3
 
 
 class Subsession(BaseSubsession):
@@ -83,7 +83,7 @@ class Comprehension(Page):
             player.q3 = True
         if all([player.q1,player.q2,player.q3]):
             return upcoming_apps[0]
-        elif int(player.round_number) == 2:
+        elif int(player.round_number) == 3:
             return upcoming_apps[3]
 
 class Error(Page):
