@@ -1,4 +1,4 @@
-# Title     : TODO
+# Title     : Main Analysis
 # Objective : TODO
 # Created by: tobi
 # Created on: 18/06/2021
@@ -22,20 +22,25 @@
 #2. Cleans the data   DONE
 #3. Imports the computational model   DONE
 #4. Joins all data in data_frame    DONE
-#5. Regresses behavioural data on the three models DONE
-#6. Compares the predictive quality of the models DONE
-#7. Investigate if a model combining optimal and one of the probability heursitics yields best result
-#8. Compare best predictive models between treatments HOW?
+#5. Regression
+
+
+
 
 library(dplyr)
 library(foreign)
 library(xtable)
+library(ggplot2)
+library(sandwich)
+library(lmtest)
 
 # model_fit_evaluation <- function(behavioural_data) {
 #Load data to dataframe
 #df_behaviour_raw <- read.csv('all_apps_wide-2021-05-18.csv')
 df_behaviour_raw <- read.csv("exp_data_clean.csv")
 df_behaviour_raw <- subset(df_behaviour_raw,df_behaviour_raw$participant._current_page_name == "Fin")
+gender <- df_behaviour_raw$fin.1.player.gender
+
 subject_number <- nrow(df_behaviour_raw)
 column_count <- 11
 
@@ -79,31 +84,30 @@ df_optimal_policy <- (read.csv('optimal_policy.csv'))
 #Combine real with policy results in data_frame
 df_combined <- dplyr::left_join(df_behaviour,df_optimal_policy)
 
+df_combined$optimal_choice[df_combined$optimal_choice == 'indifferent'] <- 0.5
+df_combined$optimal_choice <- as.numeric(df_combined$optimal_choice)
+#df_combined$probability_gain <- as.factor(df_combined$probability_gain)
+#df_combined$probability_threat <- as.factor(df_combined$probability_threat)
 
-# df_sub <- subset(df_combined,
-#                  treatment == "control"
-#                 #   | treatment == 'joy'
-#               )
+#---------------------------REGRESSIONS-------------------------------#
+induction_check <- lm(
+    valence ~
+      treatment
+   # ,subset =  (treatment == 'joy' | treatment == 'control')
+      ,data = df_combined)
 
-print(summary(lm(
+main_analyiss <- (lm(
     player_choice ~
        # valence:probability_gain +
        # valence:probability_threat +
        # valence:optimal_choice +
-       # arousal:probability_gain +
-       # arousal:probability_threat +
-       # arousal:optimal_choice +
-       # dominance:probability_gain +
-       # dominance:probability_threat +
-       # dominance:optimal_choice +
-
-
-       # treatment:probability_gain +
-       # treatment:probability_threat +
-       # treatment:optimal_choice +
-
-
-       valence:arousal:probability_gain +
+       arousal:probability_gain +
+       arousal:probability_threat +
+       arousal:optimal_choice +
+       dominance:probability_gain +
+       dominance:probability_threat +
+       dominance:optimal_choice +
+         valence:arousal:probability_gain +
        valence:arousal:probability_threat +
        valence:arousal:optimal_choice +
        valence:dominance:probability_gain +
@@ -112,19 +116,41 @@ print(summary(lm(
        arousal:dominance:probability_gain +
        arousal:dominance:probability_threat +
        arousal:dominance:optimal_choice +
+       treatment:probability_gain +
+       treatment:probability_threat +
+       treatment:optimal_choice +
 
-       valence:arousal:dominance:probability_gain +
-       valence:arousal:dominance:probability_threat +
-       valence:arousal:dominance:optimal_choice +
-
+       #
+       # valence:arousal:dominance:probability_gain +
+       # valence:arousal:dominance:probability_threat +
+       # valence:arousal:dominance:optimal_choice +
 
        probability_gain +
-       probability_threat +
+       probability_threat +                                                                                                      
        optimal_choice +
-       wealth_state
+       wealth_state +
+         clearing_nr +
+         wealth_state:clearing_nr
+
+       # log(probability_gain):valence:arousal +
+       # log(probability_threat):valence:arousal +
+       # optimal_choice:valence:arousal +
+       #
+       # log(probability_gain) +
+       # log(probability_threat) +
+       # optimal_choice +
+       # wealth_state
 
 
-    , subset = (optimal_choice != "indifferent"
-    #& treatment == 'joy' | treatment == 'threat'
-     ),
-    ,data = df_combined)))
+    , subset = (optimal_choice != "indifferent")
+    #& treatment == 'joy' | treatment == 'fear'
+
+    ,data = df_combined))
+
+#Clustering
+#coeftest(main_analyiss, cluster = "participant_id")
+coeftest(main_analyiss, vcov. = vcovHC(main_analyiss, type = 'HC1'))
+
+
+summary(main_analyiss)
+#ggplot(df_combined, aes(as.numeric(probability_gain)/as.numeric(probability_threat),reaction_time)) + geom_point()
