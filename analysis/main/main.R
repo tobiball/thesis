@@ -33,13 +33,13 @@ library(xtable)
 library(ggplot2)
 library(sandwich)
 library(lmtest)
+library(stargazer)
 
 # model_fit_evaluation <- function(behavioural_data) {
 #Load data to dataframe
 #df_behaviour_raw <- read.csv('all_apps_wide-2021-05-18.csv')
 df_behaviour_raw <- read.csv("exp_data_clean.csv")
 df_behaviour_raw <- subset(df_behaviour_raw,df_behaviour_raw$participant._current_page_name == "Fin")
-gender <- df_behaviour_raw$fin.1.player.gender
 
 subject_number <- nrow(df_behaviour_raw)
 column_count <- 11
@@ -55,7 +55,7 @@ df_behaviour[(row_index + 1):(row_index+subject_number),1:column_count] <- (df_b
                         "fin_prolific.1.player.treatment",
                         "induction_check.1.player.valence",
                         "induction_check.1.player.arousal",
-                         "induction_check.1.player.dominance",
+                        "induction_check.1.player.dominance",
                         paste(c("foraging_app.", num, ".player.foraging_choice"), collapse = ""),
                         paste(c("foraging_app.", num, ".player.probability_gain"), collapse = ""),
                         paste(c("foraging_app.", num, ".player.probability_threat"), collapse = ""),
@@ -86,39 +86,50 @@ df_combined <- dplyr::left_join(df_behaviour,df_optimal_policy)
 
 df_combined$optimal_choice[df_combined$optimal_choice == 'indifferent'] <- 0.5
 df_combined$optimal_choice <- as.numeric(df_combined$optimal_choice)
-#df_combined$probability_gain <- as.factor(df_combined$probability_gain)
-#df_combined$probability_threat <- as.factor(df_combined$probability_threat)
 
+df_m <- subset(df_behaviour_raw, fin_prolific.1.player.treatment == 'fear')
+
+#print(mean(df_m$induction_check.1.player.arousal,na.rm=TRUE))
 #---------------------------REGRESSIONS-------------------------------#
-induction_check <- lm(
-    valence ~
-      treatment
-   # ,subset =  (treatment == 'joy' | treatment == 'control')
-      ,data = df_combined)
+# induction_valence <- lm(
+#                        induction_check.1.player.valence ~ fin_prolific.1.player.treatment
+#    # ,subset =  (treatment == 'joy' | treatment == 'control')
+#       ,data = df_behaviour_raw)
+# induction_arousal <- lm(
+#                        induction_check.1.player.arousal ~ fin_prolific.1.player.treatment
+#    # ,subset =  (treatment == 'joy' | treatment == 'control')
+#       ,data = df_behaviour_raw)
+# induction_dominance <- lm(
+#                        induction_check.1.player.dominance ~ fin_prolific.1.player.treatment
+#    # ,subset =  (treatment == 'joy' | treatment == 'control')
+#       ,data = df_behaviour_raw)
 
-main_analyiss <- (lm(
+
+main_analyiss <- (glm(
     player_choice ~
-       # valence:probability_gain +
-       # valence:probability_threat +
-       # valence:optimal_choice +
+       valence:probability_gain +
+       valence:probability_threat +
+       valence:optimal_choice +
        arousal:probability_gain +
        arousal:probability_threat +
        arousal:optimal_choice +
        dominance:probability_gain +
        dominance:probability_threat +
        dominance:optimal_choice +
-         valence:arousal:probability_gain +
-       valence:arousal:probability_threat +
-       valence:arousal:optimal_choice +
-       valence:dominance:probability_gain +
-       valence:dominance:probability_threat +
-       valence:dominance:optimal_choice +
-       arousal:dominance:probability_gain +
-       arousal:dominance:probability_threat +
-       arousal:dominance:optimal_choice +
-       treatment:probability_gain +
-       treatment:probability_threat +
-       treatment:optimal_choice +
+       #
+       # valence:arousal:probability_gain +
+       # valence:arousal:probability_threat +
+       # valence:arousal:optimal_choice +
+       # dominance:valence:probability_gain +
+       # valence:dominance:probability_threat +
+       # valence:dominance:optimal_choice +
+       # arousal:dominance:probability_gain +
+       # arousal:dominance:probability_threat +
+       # arousal:dominance:optimal_choice +
+
+       # treatment:probability_gain +
+       # treatment:probability_threat +
+       # treatment:optimal_choice +
 
        #
        # valence:arousal:dominance:probability_gain +
@@ -129,8 +140,8 @@ main_analyiss <- (lm(
        probability_threat +                                                                                                      
        optimal_choice +
        wealth_state +
-         clearing_nr +
-         wealth_state:clearing_nr
+       clearing_nr +
+       wealth_state:clearing_nr
 
        # log(probability_gain):valence:arousal +
        # log(probability_threat):valence:arousal +
@@ -145,12 +156,15 @@ main_analyiss <- (lm(
     , subset = (optimal_choice != "indifferent")
     #& treatment == 'joy' | treatment == 'fear'
 
-    ,data = df_combined))
+    ,data = df_combined,family = "binomial"))
 
 #Clustering
 #coeftest(main_analyiss, cluster = "participant_id")
-coeftest(main_analyiss, vcov. = vcovHC(main_analyiss, type = 'HC1'))
+#coeftest(main_analyiss, vcov. = vcovHC(main_analyiss, type = 'HC1'))
 
 
 summary(main_analyiss)
 #ggplot(df_combined, aes(as.numeric(probability_gain)/as.numeric(probability_threat),reaction_time)) + geom_point()
+#stargazer(main_analyiss, type = "html", out = "main_analyisis.html")
+
+#stargazer(induction_valence,induction_arousal,induction_dominance)
