@@ -8,6 +8,14 @@ SESSION_CONFIGS = [
                       "fin_prolific"],
         num_demo_participants=180,
     ),
+    
+        dict(
+        name='Foraging_Experiment_',
+        display_name="Foraging Experiment_Example",
+        app_sequence=["introduction", "instructions", "ready", "foraging_app", "induction_check"
+                      ],
+        num_demo_participants=180,
+    ),
 
     dict(
         name='Foraging_Experiment_Beta',
