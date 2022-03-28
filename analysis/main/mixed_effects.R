@@ -26,7 +26,7 @@ source("main.R")
 #---------------------------REGRESSIONS-------------------------------#
 
 
-df_combined <- data_preperation("exp_data_clean.csv")
+df_combined <- data_preperation("../exp_data_clean.csv")
 
 df_tobi <- subset(df_combined,df_combined$rnpmds_ != "indifferent")
 

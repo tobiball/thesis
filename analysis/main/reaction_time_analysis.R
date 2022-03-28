@@ -24,7 +24,7 @@ source("main.R")
 #---------------------------REGRESSIONS-------------------------------#
 
 
-df_combined <- data_preperation("exp_data_clean.csv")
+df_combined <- data_preperation("../exp_data_clean.csv")
 df_combined$rnmpds_chosen <- as.factor(df_combined$rnpmds_ == df_combined$player_choice)
 
 # reaction_time_reg <- glm.cluster(

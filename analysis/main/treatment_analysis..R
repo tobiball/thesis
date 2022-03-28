@@ -18,7 +18,7 @@ source("main.R")
 #---------------------------REGRESSIONS-------------------------------#
 
 
-df_combined <- data_preperation("exp_data_clean.csv")
+df_combined <- data_preperation("../exp_data_clean.csv")
 
 test <- (glm.cluster(
     player_choice ~

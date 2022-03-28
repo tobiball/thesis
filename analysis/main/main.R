@@ -15,16 +15,19 @@
 #2. Cleans the data   DONE
 #3. Imports the computational model   DONE
 #4. Joins all data in data_frame    DONE
+library(zoo, warn.conflicts = FALSE)
+library(base, warn.conflicts = FALSE)
+library(stats, warn.conflicts = FALSE)
 
-library(dplyr)
-library(foreign)
-library(xtable)
-library(ggplot2)
-library(sandwich)
-library(lmtest)
-library(stargazer)
-library(miceadds)
-library(texreg)
+library(dplyr, warn.conflicts = FALSE)
+library(foreign, warn.conflicts = FALSE)
+library(xtable, warn.conflicts = FALSE)
+library(ggplot2, warn.conflicts = FALSE)
+library(sandwich, warn.conflicts = FALSE)
+library(lmtest, warn.conflicts = FALSE)
+library(stargazer, warn.conflicts = FALSE)
+library(miceadds, warn.conflicts = FALSE)
+library(texreg, warn.conflicts = FALSE)
 
 data_preperation <- function(behavioural_data) {
 #Load data to dataframe
@@ -65,6 +68,8 @@ df_behaviour[(row_index + 1):(row_index+subject_number),1:column_count] <- (df_b
       df_behaviour[(row_index + 1):(row_index+subject_number),"attack_prev"] <- 0
     }
 }
+
+
 df_behaviour <- df_behaviour[complete.cases(df_behaviour), ]
 
 df_behaviour$valence <- df_behaviour$valence - 50
@@ -77,17 +82,17 @@ df_behaviour <- df_behaviour %>%
        mutate(wealth_state = cumsum(success) - success)
 
 #Get optimal policy decsion from python script
-df_optimal_policy <- (read.csv('optimal_policy.csv'))
-
-#Combine real with policy results in data_frame
+df_optimal_policy <- (read.csv('main/optimal_policy.csv'))
 df_combined <- dplyr::left_join(df_behaviour,df_optimal_policy)
 
-names(df_combined)[16] <- "rnpmds_"
-#df_combined$optimal_choice[df_combined$optimal_choice == 'indifferent'] <- 0.5
-#df_combined$probability_threat <- as.numeric(df_combined$probability_threat *1.5)
-#df_combined$optimal_choice <- as.numeric(df_combined$optimal_choice)
+#Combine real with policy results in data_frame
+# names(df_combined)[16] <- "rnpmds_"
+df_combined$optimal_choice[df_combined$optimal_choice == 'indifferent'] <- 0.5
+df_combined$probability_threat <- as.numeric(df_combined$probability_threat *1.5)
+df_combined$optimal_choice <- as.numeric(df_combined$optimal_choice)
 
 #df_m <- subset(df_behaviour_raw, fin_prolific.1.player.treatment == 'fear')
+
 
 #print(mean(df_m$induction_check.1.player.arousal,na.rm=TRUE))
 # N = matrix(0,3,16, byrow = T)
@@ -103,12 +108,18 @@ names(df_combined)[16] <- "rnpmds_"
      return((df_combined))
 #   return(list(df_combined,df_behaviour))
 }
+
+logit2prob <- function(logit){
+  odds <- exp(logit)
+  prob <- odds / (1 + odds)
+  return(prob)
+}
 # preped_data <- data_preperation("exp_data_clean.csv")
 # df_combined <- preped_data[[1]]
 # df_behaviour<- preped_data[[2]]
 
 # #---------------------------REGRESSIONS-------------------------------#
-df_behaviour_raw <- read.csv("exp_data_clean.csv")
+df_behaviour_raw <- read.csv("main/exp_data_clean.csv")
 df_behaviour_raw <- subset(df_behaviour_raw,df_behaviour_raw$participant._current_page_name == "Fin")
 
 induction_valence <- lm(
@@ -117,6 +128,8 @@ induction_arousal <- lm(
                        induction_check.1.player.arousal ~ fin_prolific.1.player.treatment,data = df_behaviour_raw)
 induction_dominance <- lm(
                        induction_check.1.player.dominance ~ fin_prolific.1.player.treatment,data = df_behaviour_raw)
+
+df_combined <- data_preperation("main/exp_data_clean.csv")
 
 # test <- (glm.cluster(
 #     player_choice ~
@@ -188,27 +201,27 @@ induction_dominance <- lm(
 #     ,data = df_combined
 #     ,family = "binomial"))
 #
-# single <- (glm.cluster(
-#     player_choice ~
-#        probability_gain +
-#        probability_threat +
-#        optimal_choice +
-#        wealth_state +
-#        clearing_nr +
-#        valence:probability_gain +
-#        valence:probability_threat +
-#        valence:optimal_choice
-#        # arousal:probability_gain +
-#        # arousal:probability_threat +
-#        # arousal:optimal_choice +
-#        # dominance:probability_gain +
-#        # dominance:probability_threat +
-#        # dominance:optimal_choice
-#     ,subset = (df_combined$optimal_choice != "indifferent")
-#     ,cluster = "participant_id"
-#     ,data = df_combined
-#     ,family = "binomial"))
-#
+single <- (glm.cluster(
+    player_choice ~
+       probability_gain +
+       probability_threat +
+       optimal_choice +
+       wealth_state +
+       clearing_nr +
+       valence:probability_gain +
+       valence:probability_threat +
+       valence:optimal_choice
+       # arousal:probability_gain +
+       # arousal:probability_threat +
+       # arousal:optimal_choice +
+       # dominance:probability_gain +
+       # dominance:probability_threat +
+       # dominance:optimal_choice
+    ,subset = (df_combined$optimal_choice != "indifferent")
+    ,cluster = "participant_id"
+    ,data = df_combined
+    ,family = "binomial"))
+
 # double <- (glm.cluster(
 #     player_choice ~
 #        probability_gain +
@@ -229,7 +242,7 @@ induction_dominance <- lm(
 #     ,cluster = "participant_id"
 #     ,data = df_combined
 #     ,family = "binomial"))
-#
+# #
 # full <- (glm.cluster(
 #     player_choice ~
 #        probability_gain +
@@ -264,19 +277,19 @@ induction_dominance <- lm(
 #     ,family = "binomial"))
 # #Display Options
 #
-# #summary(template)
-# screenreg(l =list(test),digits = 4,stars = c(0.001, 0.01, 0.05, 0.1),padding =10,outer.rules = 1)
+#summary(single)
+# screenreg(l =list(double),digits = 4,stars = c(0.001, 0.01, 0.05, 0.1),padding =10,outer.rules = 1)
 # #screenreg(l =list(base,treatment,single,double,full),digits = 4,stars = c(0.001, 0.01, 0.05, 0.1))
 # # htmlreg(l =list(test,base,treatment),
 # #         custom.model.names = c("(1)","(2)","(3)"),
 # #         digits = 4,stars = c(0.001, 0.01, 0.05, 0.1),
 # #         padding = 8,outer.rules = 1, inner.rules = 0.3, symbol = "~",bold = 0.1)
 # #plotreg(template)
-html <- texreg(l =list(induction_valence,induction_arousal,induction_dominance),
-        custom.model.names = c("(Valence)","(Arousal)","(Dominance)"),
-        digits = 4,stars = c(0.001, 0.01, 0.05, 0.1),
-        padding = 30,outer.rules = 1, inner.rules = 0.3, symbol = "~",bold = 0.1,
-        caption = "Base DS and Treatment",)
+# html <- texreg(l =list(induction_valence,induction_arousal,induction_dominance),
+#         custom.model.names = c("(Valence)","(Arousal)","(Dominance)"),
+#         digits = 4,stars = c(0.001, 0.01, 0.05, 0.1),
+#         padding = 30,outer.rules = 1, inner.rules = 0.3, symbol = "~",bold = 0.1,
+#         caption = "Base DS and Treatment",)
 # #ggplot(df_combined, aes(as.numeric(probability_gain)/as.numeric(probability_threat),reaction_time)) + geom_point()
 # #stargazer(screenreg(template), type = "html", out = "main_analyisis.html")
 #
@@ -286,23 +299,125 @@ df_behaviour_raw[df_behaviour_raw == "fear"] <- 'Negative'
 df_behaviour_raw[df_behaviour_raw == "joy"] <- 'Positive'
 df_behaviour_raw[df_behaviour_raw == "control"] <- 'Neutral'
 df_behaviour_raw[df_behaviour_raw == "fin_prolific.1.player.treatment"] <- 'treatment'
-qplot(df_behaviour_raw$induction_check.1.player.valence,geom = "histogram")
+# qplot(df_behaviour_raw$induction_check.1.player.valence,geom = "histogram")
 
-qplot(df_behaviour_raw$fin_prolific.1.player.treatment, induction_check.1.player.valence,
-      data = df_behaviour_raw,
-      geom=c("boxplot", "jitter"),
-      fill = fin_prolific.1.player.treatment,
-#      title = 'blobl'
-) + ggtitle("") +
-  stat_summary(fun.y=mean, geom="point", shape=20, size=14, color="yellow", fill="yellow") +
-  xlab("Induction") + ylab("Valence") + guides(fill=guide_legend(title="Induction"))  + theme(text = element_text(size = 20))
+# qplot(df_behaviour_raw$fin_prolific.1.player.treatment, induction_check.1.player.valence,
+#       data = df_behaviour_raw,
+#       geom=c("boxplot", "jitter"),
+#       fill = fin_prolific.1.player.treatment,
+# #      title = 'blobl'
+# ) + ggtitle("") +
+#   stat_summary(fun=mean, geom="point", shape=20, size=14, color="yellow", fill="yellow") +
+#   xlab("Induction") + ylab("Valence") + guides(fill=guide_legend(title="Induction"))  + theme(text = element_text(size = 20))
 
 
 #qplot(induction_check.1.player.valence,induction_check.1.player.arousal, data = df_behaviour_raw)
 
-df_combined <- data_preperation("exp_data_clean.csv")
 
 # joy <- subset(df_combined$player_choice,df_combined$treatment == "joy")
 # fear <- subset(df_combined$player_choice,df_combined$treatment == "fear")
 # control <- subset(df_combined$player_choice,df_combined$treatment == "control")
 # joy_results <- joy$player_choice == joy$rnpmds_
+# joy_results <- joy$player_choice == joy$rnpmds_
+
+
+
+glmc <- (glm.cluster(
+    player_choice ~
+       optimal_choice
+    ,subset = (df_combined$optimal_choice != "indifferent" & df_combined$treatment == "control")
+    ,cluster = "participant_id"
+    ,data = df_combined
+    ,family = "binomial"))
+
+glmf <- (glm.cluster(
+    player_choice ~
+       optimal_choice
+    ,subset = (df_combined$optimal_choice != "indifferent" & df_combined$treatment == "fear")
+    ,cluster = "participant_id"
+    ,data = df_combined
+    ,family = "binomial"))
+
+glmj <- (glm.cluster(
+    player_choice ~
+       optimal_choice
+    ,subset = (df_combined$optimal_choice != "indifferent" & df_combined$treatment == "joy")
+    ,cluster = "participant_id"
+    ,data = df_combined
+    ,family = "binomial"))
+
+# screenreg(extract(
+#   lm1,
+#   include.aic = FALSE,
+#   include.bic = FALSE,
+#   include.loglik = TRUE,
+#   include.deviance = FALSE,
+# ))
+#
+# screenreg(extract(
+#   lmf,
+#   include.aic = FALSE,
+#   include.bic = FALSE,
+#   include.loglik = TRUE,
+#   include.deviance = FALSE,
+# ))
+#
+# screenreg(extract(
+#   lmj,
+#   include.aic = FALSE,
+#   include.bic = FALSE,
+#   include.loglik = TRUE,
+#   include.deviance = FALSE,
+# ))
+
+# logit2prob(coef(glmj))
+
+
+
+# glm_base <- (glm.cluster(
+#     player_choice ~
+#        optimal_choice
+#     ,subset = (df_combined$optimal_choice != "indifferent" )
+#     ,cluster = "participant_id"
+#     ,data = df_combined
+#     ,family = "binomial"))
+#
+# glm_negative_induction <- (glm.cluster(
+#     player_choice ~
+#        optimal_choice
+#     ,subset = (df_combined$optimal_choice != "indifferent" & df_combined$treatment == "fear")
+#     ,cluster = "participant_id"
+#     ,data = df_combined
+#     ,family = "binomial"))
+#
+logit2prob <- function(logit){
+  odds <- exp(logit)
+  prob <- odds / (1 + odds)
+  return(prob)
+}
+#
+# model_prob <- function(glm){
+#   intercept <- coef(glm)[1]
+#   b <- coef(glm)[2]
+#   logits <- intercept + b
+#   prob <- logit2prob(logits)
+#
+#   return(prob)
+# }
+
+# model_prob(glm_base)
+# model_prob(glm_negative_induction)
+
+
+
+library(plyr)
+# Break up d by state, then fit the specified model to each piece and
+# return a list
+models <- dlply(df_combined, "participant_id", function(df)
+  lm(player_choice ~ optimal_choice, data = df))
+
+# Apply coef to each model and return a data frame
+ldply(models, coef)
+
+# Print the summary of each model
+# l_ply(models, summary, .print = TRUE)
